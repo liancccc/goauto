@@ -194,8 +194,10 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		Target: filepath.Join(spiderOutDir, "links.txt"),
 		Output: filepath.Join(vulscanOutDir, "xscan.json"),
 	})
-	new(xray.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(spiderOutDir, "links.txt"),
-		Output: filepath.Join(vulscanOutDir, "xray.txt"),
+	new(xray.ModuleStruct).Run(xray.Params{
+		BaseParams: &modules.BaseParams{
+			Target: filepath.Join(spiderOutDir, "links.txt"),
+			Output: filepath.Join(vulscanOutDir, "xray.html"),
+		},
 	})
 }

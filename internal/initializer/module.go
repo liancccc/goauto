@@ -7,6 +7,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
 	"github.com/liancccc/goauto/internal/modules"
+	"github.com/projectdiscovery/gologger"
 
 	_ "github.com/liancccc/goauto/internal/modules/alterx"
 	_ "github.com/liancccc/goauto/internal/modules/cdncheck"
@@ -33,7 +34,9 @@ func ModuleInstall() {
 		if module.CheckInstalled() {
 			status[module.Name()] = true
 		} else {
-			module.Install()
+			if err := module.Install(); err != nil {
+				gologger.Error().Msg(err.Error())
+			}
 			status[module.Name()] = module.CheckInstalled()
 		}
 	}

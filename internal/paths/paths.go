@@ -13,3 +13,12 @@ var ToolsDir = filepath.Join(BaseDir, "tools")
 var DictDir = filepath.Join(BaseDir, "wordlist")
 var TargetDir = filepath.Join(BaseDir, "targets")
 var WorkspaceDir = filepath.Join(homeDir, "goauto-workspace")
+
+func init() {
+	fileutil.MakeDir(BaseDir)
+	fileutil.MakeDir(VenvDir)
+	fileutil.MakeDir(ToolsDir)
+	fileutil.MakeDir(DictDir)
+	fileutil.MakeDir(TargetDir)
+	fileutil.MakeDir(WorkspaceDir)
+}

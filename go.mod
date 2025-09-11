@@ -10,6 +10,7 @@ require (
 	github.com/shirou/gopsutil/v3 v3.23.7
 	github.com/spf13/cobra v1.10.1
 	github.com/thoas/go-funk v0.9.3
+	golang.org/x/net v0.33.0
 )
 
 require (
@@ -65,7 +66,6 @@ require (
 	go4.org v0.0.0-20230225012048-214862532bf5 // indirect
 	golang.org/x/arch v0.8.0 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
-	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/sync v0.11.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect

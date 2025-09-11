@@ -3,6 +3,7 @@ package fileutil
 import (
 	"fmt"
 	"path/filepath"
+	"runtime"
 
 	"github.com/liancccc/goauto/internal/executil"
 )
@@ -11,7 +12,12 @@ import (
 // 系统工具大部分时间都胜过自己写
 func Download(link, output string) bool {
 	MakeDir(filepath.Dir(output))
-	var command = fmt.Sprintf("curl %s -o %s", link, output)
+	var command string
+	if runtime.GOOS == "windows" {
+		command = fmt.Sprintf("curl %s -o %s", link, output)
+	} else {
+		command = fmt.Sprintf("wget %s -O %s", link, output)
+	}
 	executil.RunCommandSteamOutput(command)
 	return IsFile(output)
 }

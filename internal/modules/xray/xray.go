@@ -42,14 +42,14 @@ func (m *ModuleStruct) Install() error {
 		return fmt.Errorf("unzip xray.zip fail")
 	}
 	fileutil.Move(filepath.Join(toolDir, rawBinName), m.GetBin())
-	executil.RunCommandSteamOutput(fmt.Sprintf("%s genca", m.GetBin()))
+	executil.RunCommandSteamOutput(fmt.Sprintf("%s genca", m.GetExec()))
 	fileutil.Remove(zipOut)
 	return nil
 }
 
 func (m *ModuleStruct) CheckInstalled() bool {
-	commandSteamOutput, _ := executil.RunCommandSteamOutput(m.GetBin())
-	return strings.Contains(commandSteamOutput, "USAGE:")
+	commandSteamOutput, _ := executil.RunCommandSteamOutput(m.GetExec())
+	return strings.Contains(commandSteamOutput, "webscan")
 }
 
 func (m *ModuleStruct) GetDownloadName() string {
@@ -70,6 +70,15 @@ func (m *ModuleStruct) GetBin() string {
 	}
 }
 
+// GetExec 奇怪的工具, 使用 exec.Command 设置 Dir 竟然不行? 就非得在那个目录里面
+func (m *ModuleStruct) GetExec() string {
+	if runtime.GOOS == "windows" {
+		return fmt.Sprintf(`Set-Location "%s"; %s`, filepath.Dir(m.GetBin()), m.GetBin())
+	} else {
+		return fmt.Sprintf(`cd %s && %s`, filepath.Dir(m.GetBin()), m.GetBin())
+	}
+}
+
 func (m *ModuleStruct) Run(funcParams any) {
 	params, ok := funcParams.(Params)
 	if !ok {
@@ -82,11 +91,11 @@ func (m *ModuleStruct) Run(funcParams any) {
 	var command string
 
 	if params.Listen != "" {
-		command = fmt.Sprintf("%s webscan --listen %s --html-output %s", m.GetBin(), params.Listen, params.Output)
+		command = fmt.Sprintf("%s webscan --listen %s --html-output %s", m.GetExec(), params.Listen, params.Output)
 	} else if params.IsFileTarget() {
-		command = fmt.Sprintf("%s webscan --url-file %s --html-output %s", m.GetBin(), params.Target, params.Output)
+		command = fmt.Sprintf("%s webscan --url-file %s --html-output %s", m.GetExec(), params.Target, params.Output)
 	} else {
-		command = fmt.Sprintf("%s webscan --url %s --html-output %s", m.GetBin(), params.Target, params.Output)
+		command = fmt.Sprintf("%s webscan --url %s --html-output %s", m.GetExec(), params.Target, params.Output)
 	}
 	if params.CustomizeParams != "" {
 		command = fmt.Sprintf("%s %s", command, params.CustomizeParams)

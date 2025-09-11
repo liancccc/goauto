@@ -1,4 +1,0 @@
-http://molimer.com:80
-https://molimer.com:443
-http://molimer.com:8080
-https-alt://104.21.62.63:8443

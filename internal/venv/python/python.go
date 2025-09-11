@@ -39,6 +39,9 @@ func (p *PythonEnv) Init() error {
 	} else {
 		executil.RunCommandSteamOutput(fmt.Sprintf("python -m venv %s", p.VenvPath))
 	}
+	fileutil.Download("https://bootstrap.pypa.io/get-pip.py", "get-pip.py")
+	executil.RunCommandSteamOutput(fmt.Sprintf("%s get-pip.py", p.PythonBin))
+	fileutil.Remove("get-pip.py")
 	return nil
 }
 

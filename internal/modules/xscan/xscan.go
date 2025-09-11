@@ -24,6 +24,6 @@ func (m *XscanBeaseModule) GetConfigPath() string {
 }
 
 func (m *XscanBeaseModule) CheckInstalled() bool {
-	commandSteamOutput, _ := executil.RunCommandSteamOutput("xscan")
+	commandSteamOutput, _ := executil.RunCommandSteamOutput(m.GetBin())
 	return strings.Contains(commandSteamOutput, "w8ay")
 }

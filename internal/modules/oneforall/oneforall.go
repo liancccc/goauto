@@ -24,6 +24,7 @@ var (
 	installRequireCommands = []string{
 		fmt.Sprintf("%s -m pip install -U pip setuptools wheel", pythonBin),
 		fmt.Sprintf("%s install -r %s", pipBin, oneforallRequirements),
+		fmt.Sprintf("%s install fire", pipBin),
 	}
 	cloneCommand = fmt.Sprintf("git clone https://github.com/liancccc/OneForAll.git %s", oenforallDir)
 )

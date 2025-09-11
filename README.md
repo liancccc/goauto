@@ -50,6 +50,11 @@ go install -v github.com/liancccc/goauto@latest
 goauto install
 ```
 
+一些工具会报毒比如 xray 如果被删就手动下载加到白名单，其中有 2 个工具是 fork 到自己的仓库，如果介意就自己下载：
+
+- oneforall：注释爆破相关，因为安装 pip 会报错
+- cdncheck：添加国内源和并发扫描
+
 初始化包含 3 个部分：
 
 - 虚拟环境
@@ -86,7 +91,7 @@ goauto web
 
 ![image-20250911204806791](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204806791.png)
 
-
+后台提供命令执行的功能方便下发任务，没有做过滤，没啥必要，所以认证不要设置的太弱。
 
 ## 如何添加工具和自定义工作流?
 
