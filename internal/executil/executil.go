@@ -72,7 +72,7 @@ func RunCommandSteamOutput(cmd string, timeoutRaws ...string) (string, error) {
 	}
 
 	if err := realCmd.Wait(); err != nil && realCmd.ProcessState != nil {
-		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
+		if ctx != nil && errors.Is(ctx.Err(), context.DeadlineExceeded) {
 			gologger.Info().Msgf("kill this process after %d seconds", timeout)
 			_ = realCmd.Process.Kill()
 			var killCmd string

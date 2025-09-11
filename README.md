@@ -21,6 +21,8 @@
 - golang
 - xscan
 
+命令执行使用 powershell 和 bash。
+
 其余工具会通过 git、go 和下载可执行文件的方式自动下载。
 
 一些 VPS 的环境安装 ksubdomain、naabu 这些会报错，可以尝试一下命令：
@@ -58,13 +60,41 @@ goauto install
 
 ![image-20250911162903696](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911162903696.png)
 
+## 工具使用
+
+### 列出工作流
+
+```
+goauto flows
+```
+
+![image-20250911204623102](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204623102.png)
+
+### 扫描模式
+
+```
+goauto scan -h
+```
+
+![image-20250911204723041](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204723041.png)
+
+### WEB模式
+
+```
+goauto web
+```
+
+![image-20250911204806791](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204806791.png)
+
+
+
 ## 如何添加工具和自定义工作流?
 
 ### internal/venv
 
 自定义虚拟环境或者是其他环境比如 chrome 的安装和获取路径也算。
 
-这个没有特顶的接口样式，按照自己的实现可以初始化调用即可。
+这个没有特定的接口样式，按照自己的实现可以初始化调用即可。
 
 ### internal/dict
 
