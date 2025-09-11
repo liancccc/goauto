@@ -1,0 +1,33 @@
+GET / HTTP/1.1
+Host: faq.hellosign.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 167
+Cache-Control: max-age=3600
+Cf-Ray: 97cff72d7a9e7d3b-LAX
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:15 GMT
+Expires: Wed, 10 Sep 2025 16:30:15 GMT
+Location: https://faq.hellosign.com/
+Nel: {"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}
+Report-To: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=knouctNPgZJ2eXisN0MfH6XuXkMtoMjXMRDkHsQU8fhCmPZDUUkhs%2FpfnK1gKAzSL4VzewzwbbfKvVUJ2KH6uTPNy2teUsCGaunLIWB9CNGdoIGZ2VElBc6GdTqsB1yzwrPm"}],"group":"cf-nel","max_age":604800}
+Server: cloudflare
+Set-Cookie: __cf_bm=ob5FJXIiq705DgAz8n7AHTrK.Kjf4uxSjBUA4_.mjAw-1757518215-1.0.1.1-yvxmzGrBPzrzrNNtj2GQqNwkCDUFrqnj1e2CdYEJq6CxWomiyhcGM3FSPsVHzrhoNHnlmGEIAOkVgvHJ1qDHsXsT3gKA3wjYi2MYPoI3jlw; path=/; expires=Wed, 10-Sep-25 16:00:15 GMT; domain=.faq.hellosign.com; HttpOnly
+Set-Cookie: _cfuvid=gOLM4fZndCKAzRcGr0GE7rR0Vrp_kas6qmoRWmaaxyE-1757518215307-0.0.1.1-604800000; path=/; domain=.faq.hellosign.com; HttpOnly
+Vary: Accept-Encoding
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>cloudflare</center>
+</body>
+</html>
+
+
+
+http://faq.hellosign.com:80

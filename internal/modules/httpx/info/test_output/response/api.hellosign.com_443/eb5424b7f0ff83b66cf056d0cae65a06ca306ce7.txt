@@ -1,0 +1,28 @@
+GET / HTTP/1.1
+Host: api.hellosign.com
+User-Agent: Mozilla/5.0 (ZZ; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 302 Found
+Connection: close
+Content-Length: 100
+Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept, Request-URL, Referrer-Policy, Referer, Sec-CH-UA, Sec-CH-UA-Mobile, Sec-CH-UA-Platform, Sec-Fetch-Site, User-Agent, X-User-Agent
+Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE
+Access-Control-Allow-Origin: *
+Content-Type: text/html; charset=utf-8
+Date: Wed, 10 Sep 2025 15:30:37 GMT
+Location: https://app.hellosign.com/api
+P3p: CP="NOP3PPOLICY"
+Server: envoy
+Set-Cookie: AWSALB=yKMKMdebn501TYUIP1mRvMEA8WpBjbWXVkbwXqW80Q7QGtzXj/ReAIzu/YIgLJH4Bc76tjbSAP4VgX0dJhBIg4gZdGIDoEfYGq/bict773fD52I1eucLD7roXQUz; Expires=Wed, 17 Sep 2025 15:30:37 GMT; Path=/
+Set-Cookie: AWSALBCORS=yKMKMdebn501TYUIP1mRvMEA8WpBjbWXVkbwXqW80Q7QGtzXj/ReAIzu/YIgLJH4Bc76tjbSAP4VgX0dJhBIg4gZdGIDoEfYGq/bict773fD52I1eucLD7roXQUz; Expires=Wed, 17 Sep 2025 15:30:37 GMT; Path=/; SameSite=None; Secure
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Vary: Origin
+X-Dropbox-Request-Id: ec2a99c3bbbb466b9dd7702a6cd34b20
+X-Dropbox-Response-Origin: remote
+
+<html><head><meta http-equiv="refresh" content="0;url=https://app.hellosign.com/api"/></head></html>
+
+
+https://api.hellosign.com:443

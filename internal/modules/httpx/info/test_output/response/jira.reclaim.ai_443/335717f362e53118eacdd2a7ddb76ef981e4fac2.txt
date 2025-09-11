@@ -1,0 +1,19 @@
+GET / HTTP/1.1
+Host: jira.reclaim.ai
+User-Agent: Mozilla/5.0 (Debian; Linux i686; rv:135.0) Gecko/20100101 Firefox/135.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 42
+Content-Type: application/json
+Date: Wed, 10 Sep 2025 15:30:38 GMT
+X-Amz-Apigw-Id: QsTw1EmtCYcEBvg=
+X-Amzn-Errortype: MissingAuthenticationTokenException
+X-Amzn-Requestid: 703d12d5-79be-4744-a939-d9295492c77f
+
+{"message":"Missing Authentication Token"}
+
+
+https://jira.reclaim.ai:443

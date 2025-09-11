@@ -1,0 +1,38 @@
+GET / HTTP/1.1
+Host: 3.216.238.236
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 404 Not Found
+Connection: close
+Content-Length: 993
+Date: Wed, 10 Sep 2025 15:30:26 GMT
+Via: 1.1 64d4305f6a0418824e90908ac490184e.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: QfJunukTunouq1EWcLy8UA7osDl6DIQoVsBgW00ntPM5aG2xVwhJpw==
+X-Amz-Cf-Pop: IAD61-P10
+X-Cache: LambdaGeneratedResponse from cloudfront
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Not found · Redocly.com</title>
+</head>
+<body>
+  <main><div class="content">
+    <h2>404</h2><p>It looks like you're lost</p><span>Project "undefined" doesn't exist or hasn't been built yet</span>
+  </div></main>
+  <style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 0; background-color: #fafafa; font-family: Verdana, Geneva, sans-serif; }
+  .content { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  h2 { margin: 0; color: #3949ab; font-size: 11.75rem; font-weight: 300; line-height: 1; letter-spacing: -0.00833em; }
+  p { margin: 0.35em; font-size: 1.75rem; color: rgba(0, 0, 0, 0.87); letter-spacing: 0.00938em; line-height: 1.5; }
+  span { font-size: 1rem; color: rgba(0, 0, 0, 0.54); }
+  </style>
+</body>
+</html>
+
+
+https://3.216.238.236:443

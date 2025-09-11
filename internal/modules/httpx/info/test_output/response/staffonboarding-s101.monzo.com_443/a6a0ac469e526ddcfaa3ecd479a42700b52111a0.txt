@@ -1,0 +1,41 @@
+GET / HTTP/1.1
+Host: staffonboarding-s101.monzo.com
+User-Agent: Mozilla/5.0 (Knoppix; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 200 OK
+Connection: close
+Accept-Ranges: bytes
+Cache-Control: no-cache
+Content-Security-Policy: default-src 'none'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com/; connect-src 'self' https://api.s101.nonprod-ffs.io/ https://monzo-s101-s3bucketcreator-staff-images.s3.eu-west-1.amazonaws.com/; img-src 'self' blob: data: http: https:; media-src 'self'; font-src 'self' data: https://fonts.gstatic.com/; report-uri https://api.tools.s101.nonprod-ffs.io/i/csp-report/report
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 10 Sep 2025 15:30:42 GMT
+Etag: W/"1a3-198c29a1a80"
+Last-Modified: Tue, 19 Aug 2025 13:52:16 GMT
+Referrer-Policy: no-referrer
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: DENY
+X-Permitted-Cross-Domain-Policies: none
+X-Xss-Protection: 1; mode=block
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Monzo | Staff Onboarding</title>
+    <script src="/env.js?${require('../src/core/gitCommit').default}"></script>
+  <link href="/static/css/main-1022fb9dee27a0cb2b54.css" rel="stylesheet"></head>
+  <body>
+    <div id="root" style="height: 100%"></div>
+  <script src="/static/js/runtime-09db8cf929cccb175639.js"></script><script src="/static/js/vendors~main-48894e9aab0b661e3cf4.chunk.js"></script><script src="/static/js/main-85d2130848a0fd09b612.chunk.js"></script></body>
+</html>
+
+
+
+https://staffonboarding-s101.monzo.com:443

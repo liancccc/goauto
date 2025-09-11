@@ -1,0 +1,88 @@
+GET / HTTP/1.1
+Host: 18.196.246.209
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 404 Not Found
+Connection: close
+Transfer-Encoding: chunked
+Cache-Control: no-store, no-cache, must-revalidate
+Content-Type: text/html;charset=UTF-8
+Date: Wed, 10 Sep 2025 15:30:25 GMT
+Expires: Thu, 01 Jan 1970 00:00:00 UTC
+Pragma: no-cache
+Server: ChargeBee
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+
+b5b
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+    <html>        
+        <!--[if IE]><link rel="shortcut icon" href='//css.chargebeestatic.com/static/app-static-assets/core/core-3.0.22/images/favicon.ico' /><![endif]-->
+        <link rel="icon" type="image/png" href='//css.chargebeestatic.com/static/app-static-assets/core/core-3.0.22/images/favicon.png' />    
+        <link rel='stylesheet' type='text/css' media='screen' href='//css.chargebeestatic.com/static/app-static-assets/core/core-3.0.22/stylesheets/core_global.css'/>
+
+        
+        <body class="cb-account-bg">
+    
+    
+        <div class="cb-account-body">
+            <div class="cb-error-body">
+                <h1>Sorry, we couldn't find that page</h1>
+                <p id="error_page_reason">Maybe it was moved, or you accidentally mistyped the URL</p>
+                <div class="cb-error-butn">
+                    <a href="#" id="cb-error-page" class="cb-primary-button">Back</a>
+                    <a id="cb-error-page-home" class="cb-primary-button">Home</a>
+                    <script  nonce="XDuUxJ0m+4vyKzznzIYR/TCTQ6M=" >
+                        var backBtn = document.getElementById('cb-error-page');
+                        var homeBtn = document.getElementById('cb-error-page-home');
+
+                        if (backBtn.addEventListener) {
+                            backBtn.addEventListener('click', function() {history.back();}, false);
+                        } else if(backBtn.attachEvent) {
+                            backBtn.attachEvent('onclick', (function() {history.back();}).apply(btn, [window.event]));
+                        }
+
+                        var redirectToHome = function() {
+                            var beIdErrorMessage = "Business entity either not present or user dont have access to it.";
+                            var currentErrorMessage = document.getElementById("error_page_reason").textContent;
+                            var be_id = new URL(window.location.href).searchParams.get("be_id");
+                            var home = "/";
+                            if (be_id && currentErrorMessage != beIdErrorMessage) {
+                                home += "?be_id=" + be_id;
+                            }
+                            window.location.href = home;
+                        };
+
+                        if (homeBtn.addEventListener) {
+                            homeBtn.addEventListener('click', redirectToHome, false);
+                        } else if (homeBtn.attachEvent) {
+                            homeBtn.attachEvent('onclick', (redirectToHome).apply(btn, [window.event]));
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <span  id="_err_code_" style="display:none">page_not_found</span>
+        <span id="load-time-taken" style="display:none;">_error_</span>
+
+     
+        </body>
+    </html>
+    
+
+0
+
+
+
+
+https://18.196.246.209:443

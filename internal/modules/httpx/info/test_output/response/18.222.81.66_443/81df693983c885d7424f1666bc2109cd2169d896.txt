@@ -1,0 +1,19 @@
+GET / HTTP/1.1
+Host: 18.222.81.66
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 23
+Content-Type: application/json
+Date: Wed, 10 Sep 2025 15:30:25 GMT
+X-Amz-Apigw-Id: QsTu2HZLiYcEr1Q=
+X-Amzn-Errortype: ForbiddenException
+X-Amzn-Requestid: 0716d030-7c54-4832-8cc5-36cf43debae4
+
+{"message":"Forbidden"}
+
+
+https://18.222.81.66:443

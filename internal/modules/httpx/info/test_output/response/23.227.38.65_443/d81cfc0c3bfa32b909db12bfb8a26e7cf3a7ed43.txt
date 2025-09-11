@@ -1,0 +1,25 @@
+GET / HTTP/1.1
+Host: 23.227.38.65
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 151
+Cf-Ray: 97cff76e5eecb98d-SEA
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:25 GMT
+Server: cloudflare
+
+<html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>cloudflare</center>
+</body>
+</html>
+
+
+
+https://23.227.38.65:443

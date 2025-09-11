@@ -1,0 +1,35 @@
+GET / HTTP/1.1
+Host: perf-testing.hellosign.com
+User-Agent: Mozilla/5.0 (Debian; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 302 Found
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=iso-8859-1
+Date: Wed, 10 Sep 2025 15:30:39 GMT
+Location: https://app.hellosign.com/
+Server: envoy
+Set-Cookie: AWSALB=yPfE14zKt9qacoBHYlTWFLHgA9qKpE96bw9+K9jLDegyZtUhQvGaGeqotkZ1oCjR7p71veATKL30SuD+1+8AOY/b8XOVjHmtzN8DLXMO5U78DNT5xTYL/tVR3CBQ; Expires=Wed, 17 Sep 2025 15:30:39 GMT; Path=/
+Set-Cookie: AWSALBCORS=yPfE14zKt9qacoBHYlTWFLHgA9qKpE96bw9+K9jLDegyZtUhQvGaGeqotkZ1oCjR7p71veATKL30SuD+1+8AOY/b8XOVjHmtzN8DLXMO5U78DNT5xTYL/tVR3CBQ; Expires=Wed, 17 Sep 2025 15:30:39 GMT; Path=/; SameSite=None; Secure
+Strict-Transport-Security: max-age=31536000
+Vary: Accept-Encoding
+X-Dropbox-Request-Id: 23ba7652e5bb43c2a001bd39346b67e4
+X-Dropbox-Response-Origin: remote
+
+d2
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>302 Found</title>
+</head><body>
+<h1>Found</h1>
+<p>The document has moved <a href="https://app.hellosign.com/">here</a>.</p>
+</body></html>
+
+0
+
+
+
+
+https://perf-testing.hellosign.com:443

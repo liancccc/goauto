@@ -1,0 +1,19 @@
+GET / HTTP/1.1
+Host: 3.135.132.41
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 23
+Content-Type: application/json
+Date: Wed, 10 Sep 2025 15:30:25 GMT
+X-Amz-Apigw-Id: QsTu2FvqCYcEaZA=
+X-Amzn-Errortype: ForbiddenException
+X-Amzn-Requestid: 67853404-d7d6-42f7-b79e-8a78d96a6c1a
+
+{"message":"Forbidden"}
+
+
+https://3.135.132.41:443

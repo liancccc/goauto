@@ -1,0 +1,24 @@
+GET / HTTP/1.1
+Host: 34.252.251.114
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 14_7_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 134
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:11 GMT
+Location: https://34.252.251.114:443/
+Server: awselb/2.0
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+</body>
+</html>
+
+
+
+http://34.252.251.114:80

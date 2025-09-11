@@ -1,0 +1,17 @@
+GET / HTTP/1.1
+Host: 167.235.220.62
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.1 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 308 Permanent Redirect
+Connection: close
+Date: Wed, 10 Sep 2025 15:30:00 GMT
+Location: https://167.235.220.62/
+Server: Caddy
+Content-Length: 0
+
+
+
+
+http://167.235.220.62:80

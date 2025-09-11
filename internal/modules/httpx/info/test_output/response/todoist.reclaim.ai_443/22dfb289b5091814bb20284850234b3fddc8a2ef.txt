@@ -1,0 +1,19 @@
+GET / HTTP/1.1
+Host: todoist.reclaim.ai
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 42
+Content-Type: application/json
+Date: Wed, 10 Sep 2025 15:30:44 GMT
+X-Amz-Apigw-Id: QsTxsF0CCYcEvIQ=
+X-Amzn-Errortype: MissingAuthenticationTokenException
+X-Amzn-Requestid: a3bfc40b-9a9e-4a3d-9ab8-b401e748b29d
+
+{"message":"Missing Authentication Token"}
+
+
+https://todoist.reclaim.ai:443

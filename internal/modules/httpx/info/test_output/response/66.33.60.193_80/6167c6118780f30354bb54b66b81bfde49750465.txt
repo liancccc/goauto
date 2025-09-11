@@ -1,0 +1,25 @@
+GET / HTTP/1.1
+Host: 66.33.60.193
+User-Agent: Mozilla/5.0 (CentOS; Linux i686; rv:123.0) Gecko/20100101 Firefox/123.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 308 Permanent Redirect
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/plain
+Date: Wed, 10 Sep 2025 15:30:13 GMT
+Location: https://vercel.com/
+Refresh: 0;url=https://vercel.com/
+Server: Vercel
+X-Vercel-Id: hnd1::nwz2n-1757518213115-8adfaa2c8b17
+
+f
+Redirecting...
+
+0
+
+
+
+
+http://66.33.60.193:80

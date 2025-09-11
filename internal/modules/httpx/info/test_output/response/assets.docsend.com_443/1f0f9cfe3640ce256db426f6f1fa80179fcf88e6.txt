@@ -1,0 +1,23 @@
+GET / HTTP/1.1
+Host: assets.docsend.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 146
+Alt-Svc: h3=":443"; ma=86400
+Content-Type: text/xml
+Date: Wed, 10 Sep 2025 15:30:37 GMT
+Server: CloudFront
+Via: 1.1 50d3c168a11bd353aa5b60007be33c4a.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: VHmro2Bwhkx70NKNtrdohez19egT8PN1KDFY7Y-IwdWTP-GlsVenKA==
+X-Amz-Cf-Pop: HKG62-P1
+X-Cache: Error from cloudfront
+X-Robots-Tag: noindex
+
+<?xml version="1.0" encoding="UTF-8"?><Error><Code>MissingKey</Code><Message>Missing Key-Pair-Id query parameter or cookie value</Message></Error>
+
+
+https://assets.docsend.com:443

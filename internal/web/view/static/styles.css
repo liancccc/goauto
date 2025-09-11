@@ -1,0 +1,361 @@
+/* 自定义样式 */
+
+/* 覆盖DaisyUI默认主题颜色 */
+:root {
+    --fallback-p: #374151;
+    --fallback-pc: #f9fafb;
+    --fallback-s: #6b7280;
+    --fallback-sc: #f9fafb;
+    --fallback-a: #9ca3af;
+    --fallback-ac: #f9fafb;
+    --fallback-n: #374151;
+    --fallback-nc: #f9fafb;
+    --fallback-b1: #ffffff;
+    --fallback-b2: #f8fafc;
+    --fallback-b3: #f1f5f9;
+    --fallback-bc: #374151;
+}
+
+/* 全局样式 */
+html {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8fafc;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* 确保主要内容区域覆盖整个页面 */
+main {
+    min-height: calc(100vh - 80px); /* 减去导航栏高度 */
+    background-color: #f8fafc;
+}
+
+/* 导航栏样式 */
+.navbar {
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* LOGO 样式 */
+.logo-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 卡片阴影效果 */
+.card {
+    transition: all 0.3s ease;
+    background-color: #f8fafc !important;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* 状态指示器动画 */
+@keyframes pulse-dot {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse-dot {
+    animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 表格样式增强 */
+.table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* 按钮样式增强 */
+.btn {
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* 强制覆盖按钮颜色为黑白灰 */
+.btn.btn-outline,
+button.btn.btn-outline,
+.btn.btn-sm.btn-outline,
+button.btn.btn-sm.btn-outline {
+    border-color: #d1d5db !important;
+    color: #374151 !important;
+    background-color: transparent !important;
+}
+
+.btn.btn-outline:hover,
+button.btn.btn-outline:hover,
+.btn.btn-sm.btn-outline:hover,
+button.btn.btn-sm.btn-outline:hover {
+    background-color: #f3f4f6 !important;
+    border-color: #9ca3af !important;
+    color: #1f2937 !important;
+}
+
+.btn.btn-outline:focus,
+button.btn.btn-outline:focus,
+.btn.btn-sm.btn-outline:focus,
+button.btn.btn-sm.btn-outline:focus {
+    border-color: #d1d5db !important;
+    color: #374151 !important;
+    background-color: transparent !important;
+}
+
+.btn.btn-outline:active,
+button.btn.btn-outline:active,
+.btn.btn-sm.btn-outline:active,
+button.btn.btn-sm.btn-outline:active {
+    background-color: #e5e7eb !important;
+    border-color: #6b7280 !important;
+    color: #111827 !important;
+}
+
+/* 徽章样式 */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.025em;
+}
+
+/* 输入框样式 */
+.input, .textarea, .select {
+    transition: all 0.2s ease;
+}
+
+.input:focus, .textarea:focus, .select:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* 统计卡片样式 */
+.stat {
+    transition: all 0.3s ease;
+}
+
+.stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+/* 任务列表样式 */
+.task-item {
+    transition: all 0.2s ease;
+}
+
+.task-item:hover {
+    background-color: #f8fafc;
+}
+
+/* 状态颜色 */
+.status-running {
+    color: #10b981;
+}
+
+.status-completed {
+    color: #f59e0b;
+}
+
+.status-interrupted {
+    color: #ef4444;
+}
+
+/* 代码块样式 */
+.mockup-code {
+    background-color: #f8fafc;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.mockup-code pre {
+    background-color: transparent;
+    color: #1f2937;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.mockup-code pre[data-prefix]::before {
+    content: attr(data-prefix);
+    color: #6b7280;
+    margin-right: 0.5rem;
+}
+
+/* 简化代码块样式（无前缀） */
+.simple-code {
+    background-color: #f8fafc;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #1f2937;
+}
+
+/* 报告链接样式 */
+.report-link {
+    transition: all 0.2s ease;
+}
+
+.report-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* 加载动画 */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .table {
+        font-size: 0.875rem;
+    }
+    
+    .btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* 工具提示样式 */
+.tooltip {
+    font-size: 0.875rem;
+}
+
+/* 进度条样式 */
+.progress {
+    background-color: #e5e7eb;
+}
+
+.progress::-webkit-progress-bar {
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+}
+
+.progress::-webkit-progress-value {
+    background-color: #3b82f6;
+    border-radius: 9999px;
+    transition: width 0.3s ease;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* 特殊效果 */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* 文本选择样式 */
+::selection {
+    background-color: #3b82f6;
+    color: white;
+}
+
+::-moz-selection {
+    background-color: #3b82f6;
+    color: white;
+}

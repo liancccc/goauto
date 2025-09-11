@@ -1,0 +1,26 @@
+GET / HTTP/1.1
+Host: app.hellofax.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 302 Found
+Connection: close
+Content-Length: 109
+Content-Type: text/html; charset=utf-8
+Date: Wed, 10 Sep 2025 15:30:35 GMT
+Location: https://app.hellofax.com/account/logIn
+P3p: CP="NOP3PPOLICY"
+Server: envoy
+Set-Cookie: hf_user=36d50c5bc3afaf7c6db1c291b1c9d10fbe120552bd8660c658d030b0f467dab4:fc33e7dce8a0604f0dcd16840c1fd05865b15cee88bcb5e1a1c0178994314453; path=/; domain=app.hellofax.com; secure; httponly
+Set-Cookie: hf_ref=KltdKmh0dHBzOi8vYXBwLmhlbGxvZmF4LmNvbS8=; expires=Fri, 10 Oct 2025 15:30:35 GMT; Max-Age=2592000; path=/; domain=hellofax.com
+Set-Cookie: hf_ref_lt=KltdKmh0dHBzOi8vYXBwLmhlbGxvZmF4LmNvbS8=; expires=Fri, 10 Oct 2025 15:30:35 GMT; Max-Age=2592000; path=/; domain=hellofax.com
+Set-Cookie: hs_puuid=f324c38f08f5059bc9a401905da48336b85d7987; expires=Sat, 08 Sep 2035 15:30:35 GMT; Max-Age=315360000; path=/; domain=hellofax.com
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Dropbox-Request-Id: af4e6b6d92bd4e9599c3eeaf9a5ad77b
+X-Dropbox-Response-Origin: far_remote
+
+<html><head><meta http-equiv="refresh" content="0;url=https://app.hellofax.com/account/logIn"/></head></html>
+
+
+https://app.hellofax.com:443

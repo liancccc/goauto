@@ -1,0 +1,24 @@
+GET / HTTP/1.1
+Host: 34.246.236.52
+User-Agent: Mozilla/5.0 (Mac OS X 13_2) AppleWebKit/537.36 (KHTML, like Gecko) Edge/123.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 134
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:04 GMT
+Location: https://34.246.236.52:443/
+Server: awselb/2.0
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+</body>
+</html>
+
+
+
+http://34.246.236.52:80

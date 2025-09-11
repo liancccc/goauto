@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务详情 - GOAUTO</title>
+    <!--    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />-->
+    <link href="static/daisyui-4.12.10-full.min.css" rel="stylesheet" type="text/css" />
+    <!--    <script src="https://cdn.tailwindcss.com"></script>-->
+    <script src="static/tailwindcss-3.4.17.js"></script>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="navbar bg-base-200 shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path>
+                    </svg>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a href="index.html">主页</a></li>
+                    <li><a href="commands.html">命令</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-ghost text-xl font-bold" href="index.html">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-base-content rounded-lg flex items-center justify-center">
+                        <span class="text-base-100 font-bold text-sm">G</span>
+                    </div>
+                    <span class="text-base-content font-bold">GOAUTO</span>
+                </div>
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="index.html">主页</a></li>
+                <li><a href="commands.html">命令</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+            <button class="btn btn-ghost" onclick="history.back()">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                返回
+            </button>
+        </div>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <main class="container mx-auto px-4 py-8 mt-20">
+        <!-- 任务信息卡片 -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+            <div class="card-body">
+                <h2 class="card-title mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    任务信息
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-semibold">创建时间</span>
+                        </label>
+                        <div class="simple-code" id="start-time">
+                            加载中...
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-semibold">结束时间</span>
+                        </label>
+                        <div class="simple-code" id="end-time">
+                            -
+                        </div>
+                    </div>
+                    <div class="form-control md:col-span-2">
+                        <label class="label">
+                            <span class="label-text font-semibold">运行命令</span>
+                        </label>
+                        <div class="simple-code" id="run-command">
+                            加载中...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 子进程信息 -->
+        <div class="card bg-base-100 shadow-xl mb-8" id="subprocess-card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                    子进程
+                </h2>
+                <div class="grid grid-cols-1 gap-4" id="subprocess-list">
+                    <!-- 子进程列表将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 报告展示 -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    扫描报告
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <thead>
+                            <tr>
+                                <th>模块</th>
+                                <th>报告</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-list">
+                            <!-- 报告列表将通过JavaScript动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="static/script.js"></script>
+    <script>
+        // 页面加载时获取任务详情
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const taskName = urlParams.get('task') || 'unknown';
+            
+            // 更新页面标题和任务名
+            document.title = `任务详情 - ${taskName} - GOAUTO`;
+            
+            // 根据子进程列表显示/隐藏子进程信息
+            const subprocessCard = document.getElementById('subprocess-card');
+            
+            // 如果子进程列表为空，隐藏子进程卡片
+            subprocessCard.style.display = 'none';
+            
+            // 加载报告数据
+            loadTaskReports(taskName);
+        });
+        
+        function loadTaskReports(taskName) {
+            // 从API获取实际的报告数据
+            fetch(`/task/detail?task=${encodeURIComponent(taskName)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // 处理任务详情，即使某些字段为空也是正常的
+                        const taskData = data.data || {};
+                        
+                        // 更新任务基本信息
+                        updateTaskInfo(taskData);
+                        
+                        // 更新子进程信息
+                        if (taskData.child_process && taskData.child_process.length > 0) {
+                            updateSubprocessList(taskData.child_process);
+                            document.getElementById('subprocess-card').style.display = 'block';
+                        } else {
+                            document.getElementById('subprocess-card').style.display = 'none';
+                        }
+                        
+                        // 更新报告数据
+                        if (taskData.reports) {
+                            updateReportList(taskData.reports);
+                        } else {
+                            updateReportList({});
+                        }
+                        
+                        console.log('任务详情加载成功:', taskData);
+                    } else {
+                        throw new Error(data.message || '获取任务详情失败');
+                    }
+                })
+                .catch(error => {
+                    console.error('获取任务报告失败:', error);
+                    showNotification(`获取任务详情失败: ${error.message}`, 'error');
+                    // 如果API调用失败，显示空状态
+                    updateReportList({});
+                    document.getElementById('subprocess-card').style.display = 'none';
+                });
+        }
+        
+        // 更新任务基本信息
+        function updateTaskInfo(taskData) {
+            // 更新开始时间
+            const startTimeEl = document.getElementById('start-time');
+            if (startTimeEl && taskData.start_at) {
+                startTimeEl.textContent = formatTime(taskData.start_at);
+            }
+            
+            // 更新结束时间
+            const endTimeEl = document.getElementById('end-time');
+            if (endTimeEl) {
+                endTimeEl.textContent = taskData.end_at ? formatTime(taskData.end_at) : '-';
+            }
+            
+            // 更新运行命令
+            const commandEl = document.getElementById('run-command');
+            if (commandEl && taskData.command) {
+                commandEl.textContent = taskData.command;
+            }
+        }
+        
+        // 格式化时间
+        function formatTime(timestamp) {
+            if (!timestamp) return '-';
+            const date = new Date(timestamp);
+            return date.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+        
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type} fixed top-4 right-4 z-50 max-w-sm`;
+            notification.innerHTML = `
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>${message}</span>
+                <button class="btn btn-sm btn-circle btn-ghost" onclick="this.parentElement.remove()">✕</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // 自动移除通知
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+        
+        function updateReportList(data) {
+            const reportList = document.getElementById('report-list');
+            reportList.innerHTML = '';
+            
+            // 确保data不为null或undefined
+            if (!data || typeof data !== 'object') {
+                data = {};
+            }
+            
+            // 处理报告数据，支持新的数据结构
+            const reportSections = [];
+            
+            // 检查是否有子域名报告
+            if (data.subdomains && Array.isArray(data.subdomains)) {
+                reportSections.push({
+                    name: 'subdomains',
+                    reports: data.subdomains
+                });
+            }
+            
+            // 检查是否有其他模块的报告
+            Object.keys(data).forEach(key => {
+                if (key !== 'subdomains' && Array.isArray(data[key])) {
+                    reportSections.push({
+                        name: key,
+                        reports: data[key]
+                    });
+                }
+            });
+            
+            if (reportSections.length === 0) {
+                // 如果没有报告数据，显示空状态
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td colspan="2" class="text-center text-base-content/60 py-8">
+                        <svg class="w-12 h-12 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        暂无报告数据
+                    </td>
+                `;
+                reportList.appendChild(row);
+                return;
+            }
+            
+            reportSections.forEach(section => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="font-semibold">
+                        <div class="text-base-content">${section.name}</div>
+                    </td>
+                    <td>
+                        <div class="flex flex-wrap gap-2">
+                            ${section.reports.map(report => `
+                                <a href="${report.link || '#'}" class="btn btn-outline btn-sm" target="_blank">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    ${report.name || '未知文件'}
+                                    <div class="badge badge-neutral ml-2">${report.count || 0}</div>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </td>
+                `;
+                reportList.appendChild(row);
+            });
+        }
+        
+        function updateSubprocessList(subprocesses) {
+            const subprocessList = document.getElementById('subprocess-list');
+            if (!subprocessList) return;
+            
+            subprocessList.innerHTML = '';
+            
+            // 确保subprocesses不为null或undefined
+            if (!subprocesses || !Array.isArray(subprocesses)) {
+                subprocesses = [];
+            }
+            
+            if (subprocesses.length === 0) {
+                // 如果没有子进程，显示空状态
+                const emptyCard = document.createElement('div');
+                emptyCard.className = 'card bg-base-200 shadow-sm';
+                emptyCard.innerHTML = `
+                    <div class="card-body p-4 text-center text-base-content/60">
+                        <svg class="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        暂无子进程
+                    </div>
+                `;
+                subprocessList.appendChild(emptyCard);
+                return;
+            }
+            
+            subprocesses.forEach(proc => {
+                const card = document.createElement('div');
+                card.className = 'card bg-base-200 shadow-sm';
+                card.innerHTML = `
+                    <div class="card-body p-4">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="text-sm font-mono text-base-content">PID: ${proc.pid || 'N/A'}</div>
+                            <div class="text-xs text-base-content/60">${formatTime(proc.create_at) || 'N/A'}</div>
+                        </div>
+                        <div class="simple-code text-xs">
+                            ${proc.command || 'N/A'}
+                        </div>
+                    </div>
+                `;
+                subprocessList.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>

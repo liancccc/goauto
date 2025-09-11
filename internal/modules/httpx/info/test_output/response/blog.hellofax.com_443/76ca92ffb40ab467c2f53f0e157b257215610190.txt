@@ -1,0 +1,31 @@
+GET / HTTP/1.1
+Host: blog.hellofax.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 166
+Alt-Svc: h3=":443"; ma=86400
+Cache-Control: private
+Cf-Cache-Status: BYPASS
+Cf-Ray: 97cff7aa8f7cd789-NRT
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:35 GMT
+Location: https://www.hellosign.com/blog
+Set-Cookie: _cfuvid=p87uFKerGX4Y8hBdooNtEmbWbJUbewSOI7w_I0hU84U-1757518235786-0.0.1.1-604800000; path=/; domain=.cdn.webflow.com; HttpOnly; Secure; SameSite=None
+Vary: Accept-Encoding
+X-Cluster-Name: ap-northeast-1-prod-hosting-red
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>openresty</center>
+</body>
+</html>
+
+
+
+https://blog.hellofax.com:443

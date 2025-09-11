@@ -1,0 +1,37 @@
+GET / HTTP/1.1
+Host: store.soundtrackyourbrand.com
+User-Agent: Mozilla/5.0 (SS; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 167
+Alt-Svc: h3=":443"; ma=86400
+Cache-Control: max-age=3600
+Cf-Ray: 97cff740bc2eeb7b-SEA
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:18 GMT
+Expires: Wed, 10 Sep 2025 16:30:18 GMT
+Location: https://store.soundtrackyourbrand.com/
+Nel: {"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}
+Report-To: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=S1MYAkQaN5SKF2yZT0OD%2FU0K64fW%2BxmvHAM%2FrEye77TxXl4M65NnzJxiByGemvYXnyncFqiNYUwEUW2RH6TDn4Pg1rZVUORt39w50MK9mNGjJ2IbbhAAiuVUHywvYnNsKVnDqvAx7tnZbBHiwi%2FK"}],"group":"cf-nel","max_age":604800}
+Server: cloudflare
+Server-Timing: cfRequestDuration;dur=19.999981
+Vary: Accept-Encoding
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+X-Xss-Protection: 1; mode=block
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>cloudflare</center>
+</body>
+</html>
+
+
+
+http://store.soundtrackyourbrand.com:80

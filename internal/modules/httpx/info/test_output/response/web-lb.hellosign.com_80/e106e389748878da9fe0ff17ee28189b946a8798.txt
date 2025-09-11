@@ -1,0 +1,27 @@
+GET / HTTP/1.1
+Host: web-lb.hellosign.com
+User-Agent: Mozilla/5.0 (SS; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 234
+Content-Type: text/html; charset=iso-8859-1
+Date: Wed, 10 Sep 2025 15:30:18 GMT
+Location: https://www.hellosign.com/
+Server: Apache
+Set-Cookie: AWSALB=WOlIqxZKw96mHZjL1yPssF7PSViVVW/ir+AdFk9ZoE1fRzsODKasb6GIRLEvjTsIFompSOD+Cpdv4VrnOYs3v483XzwpT1SFAkHa7k2RfCxQgHxAZFAok0qimcIZ; Expires=Wed, 17 Sep 2025 15:30:18 GMT; Path=/
+Set-Cookie: AWSALBCORS=WOlIqxZKw96mHZjL1yPssF7PSViVVW/ir+AdFk9ZoE1fRzsODKasb6GIRLEvjTsIFompSOD+Cpdv4VrnOYs3v483XzwpT1SFAkHa7k2RfCxQgHxAZFAok0qimcIZ; Expires=Wed, 17 Sep 2025 15:30:18 GMT; Path=/; SameSite=None
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="https://www.hellosign.com/">here</a>.</p>
+</body></html>
+
+
+
+http://web-lb.hellosign.com:80

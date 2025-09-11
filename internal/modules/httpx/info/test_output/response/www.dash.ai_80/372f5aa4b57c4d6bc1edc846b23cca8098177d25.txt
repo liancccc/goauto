@@ -1,0 +1,30 @@
+GET / HTTP/1.1
+Host: www.dash.ai
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 167
+Alt-Svc: h3=":443"; ma=86400
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:23 GMT
+Location: https://www.dash.ai/
+Server: CloudFront
+Via: 1.1 9b6d4f5ba6686f577cfa37c45ab662be.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: ilCgMf9Ldqozv9T_dcx3xCEjLNbkIiDWErsn3GLjBKSUfXZFImqwFg==
+X-Amz-Cf-Pop: LAX54-P5
+X-Cache: Redirect from cloudfront
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>CloudFront</center>
+</body>
+</html>
+
+
+
+http://www.dash.ai:80

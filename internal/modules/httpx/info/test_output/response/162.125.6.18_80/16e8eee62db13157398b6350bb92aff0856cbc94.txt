@@ -1,0 +1,18 @@
+GET / HTTP/1.1
+Host: 162.125.6.18
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Date: Wed, 10 Sep 2025 15:30:00 GMT
+Location: https://162.125.6.18/
+Server: envoy
+X-Dropbox-Request-Id: da1f5fa7942b4094ad50f3ba8b38124f
+Content-Length: 0
+
+
+
+
+http://162.125.6.18:80

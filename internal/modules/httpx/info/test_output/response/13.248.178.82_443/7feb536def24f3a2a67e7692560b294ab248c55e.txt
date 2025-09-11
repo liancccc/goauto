@@ -1,0 +1,20 @@
+GET / HTTP/1.1
+Host: 13.248.178.82
+User-Agent: Mozilla/5.0 (Mac OS X 13_2) AppleWebKit/537.36 (KHTML, like Gecko) Edge/117.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 200 OK
+Connection: close
+Content-Length: 44
+Content-Type: application/json
+Date: Wed, 10 Sep 2025 15:30:24 GMT
+Opentracing-Id: 3f11e1cb394d1d39dd01f4f14ec5c90d
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Trace-Id: 6f5228a2-0475-4419-7a01-4e579a1f429e
+
+{"host":"13.248.178.82","name":"Monzo API"}
+
+
+
+https://13.248.178.82:443

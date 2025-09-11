@@ -1,0 +1,25 @@
+GET / HTTP/1.1
+Host: apidemo.hellosign.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 185
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:14 GMT
+Location: https://apidemo.hellosign.com/
+Server: nginx/1.12.2
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body bgcolor="white">
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.12.2</center>
+</body>
+</html>
+
+
+
+http://apidemo.hellosign.com:80

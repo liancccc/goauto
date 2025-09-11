@@ -1,0 +1,44 @@
+GET / HTTP/1.1
+Host: store.soundtrackyourbrand.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6.7 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Alt-Svc: h3=":443"; ma=86400
+Cache-Control: private, no-store
+Cf-Cache-Status: DYNAMIC
+Cf-Ray: 97cff7d4afe01565-SEA
+Content-Security-Policy: block-all-mixed-content; frame-ancestors 'none'; upgrade-insecure-requests;
+Content-Type: text/html; charset=utf-8
+Date: Wed, 10 Sep 2025 15:30:42 GMT
+Location: https://store.soundtrack.io/
+Nel: {"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}
+Powered-By: Shopify
+Report-To: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=irT1rknjl0ZIIbWUAawXodDlj1Y%2B9nhTo%2BgyDBzy4E6uM80mP3MCMt9vCYHAvwhfLeDlViuW71SBXxMlEax852oXzzvlnO%2BHQwC%2F4p9KW6wL5VkqP8ODo4y93Jn7TOVzgeRdi74JiHSf7B23F7ax"}],"group":"cf-nel","max_age":604800}
+Server: cloudflare
+Server-Timing: processing;dur=23;desc="gc:4", db;dur=2, db_async;dur=1.403, asn;desc="56048", edge;desc="SEA", country;desc="CN", theme;desc="185180782923", pageType;desc="index", servedBy;desc="g4zg", requestID;desc="f7e9d27b-28d8-460b-87a9-58a2b94fd4af-1757518242", _y;desc="c9cfedce-f6d8-4cc8-9a8d-39f6354cc8c0", _s;desc="eaae5622-4ddb-4210-8b6c-9bdd1af22f39", _cmp;desc="3.AMPS_CNBJ_f_f_LrZiWS2iRaCq4y3RZ3bRAw"
+Server-Timing: cfRequestDuration;dur=123.000145
+Set-Cookie: _shopify_essential=:AZk0QCEnAAEAGR8V_HVhbIXqUdH05yJYylmBITKQfZqwvYMRPnhxoFzVP4atcEaXfOtZvz2jnRK4FDOcM_UPGASi7wHmNZzsjOlt4fMSoQ6IJ-aEnpaCcWUMi8HTCneKbECqtPFf3Vj8YCgLvJKlrGggeefh-vUlPsCgFjEh18Xf_xRjfQ8:; Max-Age=31536000; Path=/; HttpOnly; Secure; Priority=High; SameSite=Lax
+Shopify-Complexity-Score: 220
+Strict-Transport-Security: max-age=7889238
+X-Content-Type-Options: nosniff
+X-Dc: gcp-us-west1,gcp-us-east1,gcp-us-east1
+X-Download-Options: noopen
+X-Frame-Options: DENY
+X-Permitted-Cross-Domain-Policies: none
+X-Redirect-Reason: primary_domain_redirection
+X-Request-Id: f7e9d27b-28d8-460b-87a9-58a2b94fd4af-1757518242
+X-Shardid: 330
+X-Shopid: 72646394187
+X-Sorting-Hat-Podid: 330
+X-Sorting-Hat-Shopid: 72646394187
+X-Storefront-Renderer-Rendered: 1
+X-Xss-Protection: 1; mode=block
+Content-Length: 0
+
+
+
+
+https://store.soundtrackyourbrand.com:443

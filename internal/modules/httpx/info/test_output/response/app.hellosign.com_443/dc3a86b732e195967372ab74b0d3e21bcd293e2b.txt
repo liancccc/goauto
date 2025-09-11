@@ -1,0 +1,28 @@
+GET / HTTP/1.1
+Host: app.hellosign.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0.1 Mobile/15E148 Safari/604.1
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 302 Found
+Connection: close
+Content-Length: 110
+Content-Type: text/html; charset=utf-8
+Date: Wed, 10 Sep 2025 15:30:37 GMT
+Location: https://app.hellosign.com/account/logIn
+P3p: CP="NOP3PPOLICY"
+Server: envoy
+Set-Cookie: AWSALB=ZaR5KqvymrL+tQzZUVobKzsydiv8XutUReTDudhKQf/eBpHy29KQZUneBw7gHJA2FJeEIpj6qlkqGVUr7OSxS8zZk+0/tx4bw7VIjczs6pBBOw3GHfkjqu23Bp6q; Expires=Wed, 17 Sep 2025 15:30:37 GMT; Path=/
+Set-Cookie: AWSALBCORS=ZaR5KqvymrL+tQzZUVobKzsydiv8XutUReTDudhKQf/eBpHy29KQZUneBw7gHJA2FJeEIpj6qlkqGVUr7OSxS8zZk+0/tx4bw7VIjczs6pBBOw3GHfkjqu23Bp6q; Expires=Wed, 17 Sep 2025 15:30:37 GMT; Path=/; SameSite=None; Secure
+Set-Cookie: hf_user=5e561a9205d160fbedb8f58741ff1a4c423ff381a1d5d25941937bd58744ccea:3b39aa08a99a499dea4d247e5a34ff3af9beaf8e29bbf38ed982210c07cab0fc; path=/; domain=app.hellosign.com; secure; httponly
+Set-Cookie: hf_ref=KltdKmh0dHBzOi8vYXBwLmhlbGxvc2lnbi5jb20v; expires=Fri, 10 Oct 2025 15:30:37 GMT; Max-Age=2592000; path=/; domain=hellosign.com
+Set-Cookie: hf_ref_lt=KltdKmh0dHBzOi8vYXBwLmhlbGxvc2lnbi5jb20v; expires=Fri, 10 Oct 2025 15:30:37 GMT; Max-Age=2592000; path=/; domain=hellosign.com
+Set-Cookie: hs_puuid=e55b3ce460cb26e59a92e1faa206a2a00ac89794; expires=Sat, 08 Sep 2035 15:30:37 GMT; Max-Age=315360000; path=/; domain=hellosign.com
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Dropbox-Request-Id: 67ccda4d17ae45718822029f72d8d277
+X-Dropbox-Response-Origin: remote
+
+<html><head><meta http-equiv="refresh" content="0;url=https://app.hellosign.com/account/logIn"/></head></html>
+
+
+https://app.hellosign.com:443

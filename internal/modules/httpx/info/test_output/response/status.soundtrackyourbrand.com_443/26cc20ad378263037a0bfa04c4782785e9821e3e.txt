@@ -1,0 +1,38 @@
+GET / HTTP/1.1
+Host: status.soundtrackyourbrand.com
+User-Agent: Mozilla/5.0 (Fedora; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/126.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 302 Moved Temporarily
+Connection: close
+Content-Length: 95
+Atl-Request-Id: 991d0444-7cb0-4283-9810-a2426f493ada
+Atl-Traceid: 991d04447cb042839810a2426f493ada
+Cache-Control: no-cache
+Content-Type: text/html; charset=utf-8
+Date: Wed, 10 Sep 2025 15:30:46 GMT
+Location: https://status.soundtrack.io/
+Nel: {"failure_fraction": 0.001, "include_subdomains": true, "max_age": 600, "report_to": "endpoint-1"}
+Referrer-Policy: strict-origin-when-cross-origin
+Report-To: {"endpoints": [{"url": "https://dz8aopenkvv6s.cloudfront.net"}], "group": "endpoint-1", "include_subdomains": true, "max_age": 600}
+Server: AtlassianEdge
+Server-Timing: atl-edge;dur=72,atl-edge-internal;dur=9,atl-edge-upstream;dur=64,atl-edge-pop;desc="aws-us-east-1"
+Strict-Transport-Security: max-age=63072000; preload
+Vary: Accept,Accept-Encoding
+Via: 1.1 ca9d11505cc41ce52816a1daba115fe8.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: BPVPZi2khdN9rlSCMoYc_GXXG4u909Cljb4VwfoMGqUoxURJR4eEhA==
+X-Amz-Cf-Pop: HKG1-P2
+X-Cache: Miss from cloudfront
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: SAMEORIGIN
+X-Permitted-Cross-Domain-Policies: none
+X-Runtime: 0.033312
+X-Statuspage-Version: b27f95704d5835d5f1a3ccc341503d3f7f22f502
+X-Xss-Protection: 1; mode=block
+
+<html><body>You are being <a href="https://status.soundtrack.io/">redirected</a>.</body></html>
+
+
+https://status.soundtrackyourbrand.com:443

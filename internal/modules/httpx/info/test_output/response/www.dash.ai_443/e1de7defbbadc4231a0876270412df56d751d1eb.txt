@@ -1,0 +1,31 @@
+GET / HTTP/1.1
+Host: www.dash.ai
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 200 OK
+Connection: close
+Transfer-Encoding: chunked
+Alt-Svc: h3=":443"; ma=86400
+Cache-Control: public, s-maxage=0
+Content-Security-Policy: report-uri https://www.dropbox.com/csp_log?policy_name=dash; default-src 'none'; img-src 'self' data: https://*; font-src 'self' data: https://*; object-src 'self' https://cfl.dropboxstatic.com https://s2.googleusercontent.com https://*.gstatic.com https://app.dropboxer.net; frame-src https://www.dropbox.com; connect-src 'self' blob: https://*.logs.datadoghq.com https://*.logs.datadoghq.eu https://*.dropbox.com https://*.sentry.io https://*.wp.com https://api.dropboxapi.com https://content.dropboxapi.com https://cdn.dropboxexperiment.com https://sentry.io https://api.sprig.com https://cdn.sprig.com https://cfl.dropboxstatic.com https://cognito-identity.us-west-2.amazonaws.com https://user-events-v3.s3-accelerate.amazonaws.com https://*.dropboxusercontent.com https://*.googleusercontent.com https://cdn.prod.website-files.com https://*.atlassian.net https://edge.fullstory.com https://rs.fullstory.com; media-src 'self' https://*.dropbox.com; script-src 'self' 'report-sample' 'sha256-Ug+Tt6thCsOMMEscVE3D3ynGMA/+AqEnDh5MqhLRPMY=' https://*.wp.com https://*.sentry.io https://browser.sentry-cdn.com https://cfl.dropboxstatic.com https://js.sentry-cdn.com https://www.dropbox.com https://www.datadoghq-browser-agent.com https://snippet.meticulous.ai https://edge.fullstory.com https://rs.fullstory.com; style-src 'self' 'unsafe-inline' https://*.wp.com; worker-src 'self' blob:;
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:47 GMT
+Etag: W/"edf71e15b72a168cbb1cda6854266ffd"
+Last-Modified: Mon, 08 Sep 2025 20:45:37 GMT
+Server: AmazonS3
+Vary: accept-encoding
+Via: 1.1 871d6ac84aeaa9f23710de8aa6743436.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: k7T7-BOb0QNkRnbhAAAkK4zaT20_h8yuKB9XsD6aesTzcZuTZorFZg==
+X-Amz-Cf-Pop: LAX54-P5
+X-Cache: Miss from cloudfront
+
+828
+<!DOCTYPE html><html style="background-color:var(--dig-color__background__base)"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="var(--dig-color__background__base)"><meta name="robots" content="none"><meta name="description" content="Dropbox Dash helps speed up work with AI-powered search across all your connected apps. Dropbox is SOC2-compliant and committed to handling your information with care."><meta name="apple-itunes-app" content="app-id=6450553960"><link rel="preload" href="/static/media/AtlasGrotesk-Regular-Web.e241b9859333fe7f2b69.woff2" as="font" crossorigin=""><link rel="preload" href="/static/media/AtlasGrotesk-Medium-Web.eb783956ad074ea9063a.woff2" as="font" crossorigin=""><link rel="preload" href="/static/media/SharpGroteskDBCyrMedium20.592b806575643c859d3c.woff2" as="font" crossorigin=""><link rel="preload" href="/static/media/SharpGroteskDBKO-Medium20.d38e218bd5ba523ae13d.woff2" as="font" crossorigin=""><link rel="preload" href="/static/media/SharpGroteskDBThaiMedium-20.343c1a604bafb3ee5af0.woff2" as="font" crossorigin=""><title>Dropbox Dash</title><script>const isRunningInEsv=Boolean(window.fenixInitializationComplete);"serviceWorker"in navigator&&!isRunningInEsv&&navigator.serviceWorker.register("/sw.js").then((n=>{const i=n?.installing;i&&(i.onstatechange=()=>{"installed"===i.state&&(console.log("sw: reload after installation"),location.reload())})}))</script><script defer="defer" src="/static/js/runtime.620e6eb4.js"></script><script defer="defer" src="/static/js/4693.c0d4ac84.js"></script><script defer="defer" src="/static/js/9250.1afdf279.js"></script><script defer="defer" src="/static/js/3931.1c0dc47f.js"></script><script defer="defer" src="/static/js/main.7f429f0b.js"></script><link href="/static/css/3931.07acb8a1.css" rel="stylesheet"><link href="/static/css/main.fd4f7932.css" rel="stylesheet"></head><body class="meticulous-mask-recording-preview"><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+0
+
+
+
+
+https://www.dash.ai:443

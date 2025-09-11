@@ -1,0 +1,19 @@
+GET / HTTP/1.1
+Host: 18.217.185.50
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 23
+Content-Type: application/json
+Date: Wed, 10 Sep 2025 15:30:25 GMT
+X-Amz-Apigw-Id: QsTu1Ee-iYcEcjA=
+X-Amzn-Errortype: ForbiddenException
+X-Amzn-Requestid: a3c57221-407b-47ea-b3a6-593c163153ff
+
+{"message":"Forbidden"}
+
+
+https://18.217.185.50:443

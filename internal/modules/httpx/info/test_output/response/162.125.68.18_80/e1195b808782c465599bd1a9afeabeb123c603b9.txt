@@ -1,0 +1,18 @@
+GET / HTTP/1.1
+Host: 162.125.68.18
+User-Agent: Mozilla/5.0 (Kubuntu; Linux i686; rv:122.0) Gecko/20100101 Firefox/122.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Date: Wed, 10 Sep 2025 15:30:00 GMT
+Location: https://162.125.68.18/
+Server: envoy
+X-Dropbox-Request-Id: 50908f9bfb644d1eba28a85f3ee952e9
+Content-Length: 0
+
+
+
+
+http://162.125.68.18:80

@@ -1,0 +1,25 @@
+GET / HTTP/1.1
+Host: 15.161.34.42:81
+User-Agent: Mozilla/5.0 (Knoppix; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 162
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:01 GMT
+Location: https://15.161.34.42/
+Server: nginx
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+
+
+http://15.161.34.42:81

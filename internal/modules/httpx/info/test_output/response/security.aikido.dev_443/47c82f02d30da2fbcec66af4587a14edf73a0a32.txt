@@ -1,0 +1,19 @@
+GET / HTTP/1.1
+Host: security.aikido.dev
+User-Agent: Mozilla/5.0 (Kubuntu; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 111
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 10 Sep 2025 15:30:40 GMT
+Location: https://intel.aikido.dev/
+Server: Apache
+Vary: Accept-Encoding
+
+<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=https://intel.aikido.dev/"></head></html>
+
+
+https://security.aikido.dev:443

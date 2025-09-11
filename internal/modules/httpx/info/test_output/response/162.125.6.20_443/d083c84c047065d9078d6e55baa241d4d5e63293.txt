@@ -1,0 +1,37 @@
+GET / HTTP/1.1
+Host: 162.125.6.20
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 404 Not Found
+Connection: close
+Content-Length: 1233
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:24 GMT
+Server: envoy
+X-Dropbox-Request-Id: e90d43b915234ed68c79a0cd15087957
+X-Dropbox-Response-Origin: local
+
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dropbox - 404</title>
+<link href="https://cfl.dropboxstatic.com/static/metaserver/static/css/error.css" rel="stylesheet" type="text/css"/>
+<link rel="shortcut icon" href="https://cfl.dropboxstatic.com/static/images/favicon.ico"/>
+</head>
+<body>
+<div class="figure">
+<img src="https://assets.dropbox.com/www/en-us/illustrations/spot/look-magnifying-glass.svg" alt="Error: 404"/>
+</div>
+<div id="errorbox">
+<div class="not-found"> <h1>Error (404)</h1> We can't find the page you're looking for. <div class="not-found--links"> Here are a few links that may be helpful: <ul> <li><a href="https://www.dropbox.com/home?_tk=fof">Home</a></li> <li><a href="https://www.dropbox.com/help?_tk=fof">Help center</a></li> <li><a href="https://www.dropbox.com/login?_tk=fof">Sign in</a></li> <li><a href="https://www.dropbox.com/register?_tk=fof">Get a free account</a></li> <li><a href="https://www.dropbox.com/plus?_tk=fof">Dropbox Plus</a></li> <li><a href="https://www.dropbox.com/business?_tk=fof">Dropbox Business</a></li> </ul> </div> </div>
+</div>
+
+</body>
+</html>
+
+
+
+https://162.125.6.20:443

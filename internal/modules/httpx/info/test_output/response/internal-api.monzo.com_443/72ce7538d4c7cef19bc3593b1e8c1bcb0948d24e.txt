@@ -1,0 +1,20 @@
+GET / HTTP/1.1
+Host: internal-api.monzo.com
+User-Agent: Mozilla/5.0 (CentOS; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 200 OK
+Connection: close
+Content-Length: 53
+Content-Type: application/json
+Date: Wed, 10 Sep 2025 15:30:39 GMT
+Opentracing-Id: 7d1c08358de43de62602cd24c8a3ee88
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Trace-Id: 46a1c93d-2da7-4676-75f1-e736266f6933
+
+{"host":"internal-api.monzo.com","name":"Monzo API"}
+
+
+
+https://internal-api.monzo.com:443

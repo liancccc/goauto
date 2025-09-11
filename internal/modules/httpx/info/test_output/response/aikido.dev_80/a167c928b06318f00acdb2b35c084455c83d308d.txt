@@ -1,0 +1,25 @@
+GET / HTTP/1.1
+Host: aikido.dev
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 162
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:12 GMT
+Location: https://aikido.dev/
+Server: nginx
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+
+
+http://aikido.dev:80

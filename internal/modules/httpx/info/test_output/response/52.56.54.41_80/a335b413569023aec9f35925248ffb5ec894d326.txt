@@ -1,0 +1,31 @@
+GET / HTTP/1.1
+Host: 52.56.54.41
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 301 Moved Permanently
+Connection: close
+Content-Length: 136
+Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+Content-Security-Policy: default-src 'self'; img-src * data:; style-src 'self'; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'self' 'unsafe-inline'; script-src 'self'; script-src-elem 'self'; object-src 'self'; connect-src *; font-src 'self' data: ms-appx-web://*; frame-src *;   frame-ancestors 'self'
+Content-Type: text/html
+Date: Wed, 10 Sep 2025 15:30:12 GMT
+Location: https://52.56.54.41/
+Permissions-Policy: autoplay=(self), camera=(), encrypted-media=(), fullscreen=(self), geolocation=(), microphone=(), midi=(), sync-xhr=(self)
+Referrer-Policy: strict-origin-when-cross-origin
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+
+</body>
+</html>
+
+
+
+http://52.56.54.41:80

@@ -1,0 +1,65 @@
+GET / HTTP/1.1
+Host: 3.33.238.178
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15
+Accept-Charset: utf-8
+Accept-Encoding: gzip
+
+HTTP/1.1 404 Not Found
+Connection: close
+Content-Length: 1692
+Accept-Ranges: bytes
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 10 Sep 2025 15:30:28 GMT
+Etag: "69c-63be058652280"
+Last-Modified: Fri, 08 Aug 2025 20:23:22 GMT
+Server: Apache
+Upgrade: h2,h2c
+Vary: X-Amzn-Trace-Id,Accept
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="robots" content="noarchive"/>
+  <meta name="googlebot" content="noarchive"/>
+  <title>Okta - Page Not Found</title>
+  <link href="https://okta.s3.amazonaws.com/error/okta.css" type="text/css" rel="stylesheet"/>
+</head>
+<body id="app" class="no-app ">
+<div id="container" class="rounded-btm-8">
+  <div id="header" class="clearfix">
+    <div class="logo">
+      <img src="https://okta.s3.amazonaws.com/error/okta-logo-new.png" width="78" height="26" alt="Okta logo"/>
+    </div>
+  </div>
+  <div id="nav-wrap" class="empty-nav">
+    <ul id="nav-primary">
+      <li class="skiplink"><a href="#startcontent">Skip navigation</a></li>
+    </ul>
+  </div>
+  <div id="content" class="rounded-btm-8 clearfix">
+    <span class="hide" id="error-code">404</span>
+
+    <div class="http-error-wrap http-error-new clearfix">
+      <div class="http-error">
+        <img alt="404: Access Forbidden" src="https://okta.s3.amazonaws.com/error/http-error-404.png"/>
+      </div>
+      <div class="http-error-new-content">
+        <h1>We couldn't find the page you were looking for.</h1>
+
+        <div class="nav-button-bar">
+          <a class="nav-button nav-button-secondary" href="/"> Go to Homepage </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="footer" class="clearfix">
+  <p id="slogan">&copy; <script>document.write(new Date().getFullYear())</script> <a href="https://www.okta.com" target="_blank">Okta, Inc.</a></p>
+</div>
+</body>
+</html>
+
+
+
+https://3.33.238.178:443
