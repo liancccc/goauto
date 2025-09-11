@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -62,6 +63,22 @@ func getALLTaskDBHandler(c *gin.Context) {
 		}
 		dbs = append(dbs, taskDB)
 	}
+
+	sort.Slice(dbs, func(i, j int) bool {
+		timeI, errI := time.Parse("2006-01-02 15:04:05", dbs[i].StartAt)
+		timeJ, errJ := time.Parse("2006-01-02 15:04:05", dbs[j].StartAt)
+		if errI != nil && errJ != nil {
+			return false
+		}
+		if errI != nil {
+			return false
+		}
+		if errJ != nil {
+			return true
+		}
+		return timeI.After(timeJ)
+	})
+
 	c.JSON(http.StatusOK, Response(true, "success", dbs))
 }
 
@@ -128,12 +145,13 @@ func getTaskDetail(c *gin.Context) {
 		return
 	}
 	detail.DB = taskDB
-	processItems, err := sysutil.GetChidrenByPID(int32(detail.DB.PID))
-	if err != nil {
-		detail.ChildProcess = make([]*sysutil.ProcessItem, 0)
+	if taskDB.Status == db.RunningStatus {
+		processItems, err := sysutil.GetChidrenByPID(int32(detail.DB.PID))
+		if err != nil {
+			detail.ChildProcess = make([]*sysutil.ProcessItem, 0)
+		}
+		detail.ChildProcess = processItems
 	}
-	detail.ChildProcess = processItems
-
 	reports, err := getTaskReports(taskName)
 	if err != nil {
 		detail.Reports = make(map[string][]*TaskReportItem)
