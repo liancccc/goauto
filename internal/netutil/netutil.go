@@ -22,3 +22,13 @@ func GetUrlMainDomain(rawUrl string) string {
 	}
 	return domain
 }
+
+func GetBaseUrl(rawUrl string) string {
+	urlParse, err := url.Parse(rawUrl)
+	if err != nil {
+		return ""
+	}
+	urlParse.RawQuery = ""
+	urlParse.Fragment = ""
+	return urlParse.String()
+}

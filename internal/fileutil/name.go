@@ -9,7 +9,7 @@ import (
 func GetUrlFileName(urlRaw string) string {
 	urlParse, err := url.Parse(urlRaw)
 	if err != nil {
-		return fmt.Sprintf("%v", time.Now().Unix())
+		return GetUnixNmae()
 	}
 	return urlParse.Hostname()
 }

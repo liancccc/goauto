@@ -1,33 +1,6 @@
-
-
-### BUG
-
-- [x] 任务排序
-- [x] 运行状态才获取子进程
-- [x] 详情新标签页
-- [ ] 日志链接按钮
-- [ ] ~~添加 IPV6~~ 
-- [ ] ~~输入是否存在的判断~~
-- [x] cdncheck 解析问题 使用 JSON
-- [x] ksubdomain 结果解析问题 使用 JSON
-- [x] dnsx 解析问题
-- [x] 漏扫扫的是 link 所以需要时间戳来命名文件 加并发 或者就 --file 
-- [x] gau 去重
-- [x] 通知
-- [ ] 动态爬虫
-- [x] uncover 从测绘获取服务链接
-
-```
-python -m uro.uro --help
-3
-https://github.com/s0md3v/uro
-```
-
-![image-20250912002236921](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250912002236921.png)
-
 ## 介绍
 
-*GOAUTO* 的目的是解放渗透测试过程中需要使用多种工具，将各种工具的安装和使用集成于一体，解放双手。
+安全工具工作流
 
 2023 年完成过一版 *GOAUTO* 但是由于工具需要手动安装，添加工具复杂，所以弃用。在这期间学习阅读各种工具源码以期待将整个流程使用单纯的 *Go* 来实现，但是个人的力量是有限的，工作后更没有精力和信心把每个模块的工具都做到很好，实现功能不难，参考已有工具就可以，但是仅实现功能好像并没有任何的意义。而且新的更好的工具也在不断出现，有开源也有闭源，如果有新的工具新的思路出现，凭个人去维护是很难的，最近空闲又拾起这件事情。改变想法，单纯的调用工具来完成整个流程。
 
@@ -91,7 +64,7 @@ goauto install
 
 - oneforall：注释爆破相关，因为安装 pip 会报错
 - cdncheck：添加国内源和并发扫描
-- uro：windows 环境下 -o 的 gbk 问题
+- uro：windows 环境下 -o 的 gbk 问题，取消 pipx 变更单纯的 py
 
 初始化包含 3 个部分：
 
@@ -121,6 +94,31 @@ Goauto 的理念是将各种优秀工具功能作为模块，然后附加到工�
 goauto flows
 ```
 
+这只是一个默认的工作流，更推荐大家自己按照自己的方式来编写，自定义某种模块功能然后进行编排，后续默认工作流不会做出大的更改。
+
+默认工作流：
+
+- 子域名收集
+  - subfinder
+  - ksubdomain
+  - alterx
+- CDN 识别 [cdncheck]
+- 非 CDN 端口扫描 [ dnsx naabu]
+- 根据域名从 Quake 拉取资产 [uncover]
+- 去重验活 [httpx]
+  - CDN 域名使用进行去重验活 [ 常见的 WEB 端口 ]
+  - 非 CDN 使用进行去重验活
+  - 去重后的 URL 获取指纹和截图
+- 爬虫
+  - gospider
+  - urlfinder
+  - katana
+- 漏洞扫描
+  - xscan
+  - xray
+  - nuclei
+- 漏扫通知 [notify]
+
 ![image-20250911204623102](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204623102.png)
 
 ### 扫描模式
@@ -146,12 +144,6 @@ goauto web
 ![image-20250911204806791](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204806791.png)
 
 后台提供命令执行的功能方便自动化下发任务，没有做过滤，没啥必要，而且我有执行其他命令的需求。所以认证自己不要设置的太弱，或者就是默认的随机。
-
-## 记录
-
-2025-09-12 开始自动监控国外 SRC 的新增域名下发任务，看看一个月会不会有点收益，把服务器费给赚出来。
-
-
 
 ## 如何添加工具和自定义工作流?
 
@@ -395,93 +387,14 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		NoCDNPath: filepath.Join(cdncheckOutDir, "noCdn.txt"),
 	})
 
-	// 对非 CDN 目标进行端口扫描
-	var portscanOutDir = filepath.Join(runner.workSpace, "portscan")
-	if fileutil.CountLines(filepath.Join(cdncheckOutDir, "noCdn.txt")) > 0 {
-		new(naabu.ModuleStruct).Run(modules.BaseParams{
-			Target: filepath.Join(cdncheckOutDir, "noCdn.txt"),
-			Output: filepath.Join(portscanOutDir, "noCdn-services.txt"),
-		})
-	}
-
-	// URL 去重验活 + 获取截图等信息
-	var httpxOutDir = filepath.Join(runner.workSpace, "httpx")
-	if fileutil.CountLines(filepath.Join(cdncheckOutDir, "cdn.txt")) > 0 {
-		new(httpx_unique.ModuleStruct).Run(modules.BaseParams{
-			Target:          filepath.Join(cdncheckOutDir, "cdn.txt"),
-			Output:          filepath.Join(httpxOutDir, "cdn-alive.txt"),
-			CustomizeParams: "-mc 200,302 -p 80,443,8080,8000,8888,4848,7070,8089,8181,9080,9443,5000,8443,5001,81,8081,50805,3000,88,7547",
-			Proxy:           runner.opt.Proxy,
-		})
-	}
-	if fileutil.CountLines(filepath.Join(portscanOutDir, "noCdn-services.txt")) > 0 {
-		new(httpx_unique.ModuleStruct).Run(modules.BaseParams{
-			Target: filepath.Join(portscanOutDir, "noCdn-services.txt"),
-			Output: filepath.Join(httpxOutDir, "noCdn-alive.txt"),
-			Proxy:  runner.opt.Proxy,
-		})
-	}
-
-	new(merge.ModuleStruct).Run(merge.Params{
-		BaseParams: &modules.BaseParams{
-			Output: filepath.Join(httpxOutDir, "merge.txt"),
-		},
-		Targets: []string{filepath.Join(httpxOutDir, "noCdn-alive.txt"), filepath.Join(httpxOutDir, "cdn-alive.txt")},
-	})
-
-	new(unique.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "merge.txt"),
-		Output: filepath.Join(httpxOutDir, "all.txt"),
-	})
-
-	new(httpx_info.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(httpxOutDir, "web.txt"),
-	})
-
-	// 爬虫
-	var spiderOutDir = filepath.Join(runner.workSpace, "spider")
-	new(gospider.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "gospider.txt"),
-		Proxy:  runner.opt.Proxy,
-	})
-	new(katana.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "katana.txt"),
-		Proxy:  runner.opt.Proxy,
-	})
-	new(urlfinder.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "urlfinder.txt"),
-		Proxy:  runner.opt.Proxy,
-	})
-	new(merge.ModuleStruct).Run(merge.Params{
-		BaseParams: &modules.BaseParams{
-			Output: filepath.Join(spiderOutDir, "all.txt"),
-		},
-		Targets: []string{filepath.Join(spiderOutDir, "gospider.txt"), filepath.Join(spiderOutDir, "katana.txt"), filepath.Join(spiderOutDir, "urlfinder.txt")},
-	})
-
-	new(unique.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(spiderOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "links.txt"),
-	})
-
-	// 漏洞扫描
-	var vulscanOutDir = filepath.Join(runner.workSpace, "vulscan")
-	new(nuclei.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(vulscanOutDir, "nuclei.txt"),
-	})
-	new(xscan_spider.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(spiderOutDir, "links.txt"),
-		Output: filepath.Join(vulscanOutDir, "xscan.json"),
-	})
-	new(xray.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(spiderOutDir, "links.txt"),
-		Output: filepath.Join(vulscanOutDir, "xray.txt"),
-	})
+	// ....
 }
 ```
 
+## 记录
+
+2025-09-12 开始自动监控国外 SRC 的新增域名范围务，看看一个月会不会有点收益，把服务器费给赚出来。
+
+## 待办
+
+- [ ] 跑一个月看 BUG

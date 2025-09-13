@@ -29,6 +29,21 @@ func WriteTempFile(data string) (string, error) {
 	return tmpFile.Name(), nil
 }
 
+// WriteToFile write string to a file
+func WriteToFile(filename string, data string) (string, error) {
+	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	_, err = io.WriteString(file, data+"\n")
+	if err != nil {
+		return "", err
+	}
+	return filename, file.Sync()
+}
+
 // GetFileContent Reading file and return content of it
 func GetFileContent(filename string) (string, error) {
 	file, err := os.Open(filename)

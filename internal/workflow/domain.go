@@ -28,6 +28,7 @@ import (
 	"github.com/liancccc/goauto/internal/modules/urlfinder"
 	"github.com/liancccc/goauto/internal/modules/uro"
 	"github.com/liancccc/goauto/internal/modules/xray"
+	"github.com/liancccc/goauto/internal/modules/xscan"
 	xscan_spider "github.com/liancccc/goauto/internal/modules/xscan/spider"
 	"github.com/projectdiscovery/gologger"
 )
@@ -260,6 +261,7 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		Output: filepath.Join(vulscanOutDir, "xscan-spider.json"),
 	})
 	if fileutil.IsFile(filepath.Join(vulscanOutDir, "xscan-spider.json")) {
+		xscan.Clean(filepath.Join(vulscanOutDir, "xscan-spider.json"), filepath.Join(vulscanOutDir, "xscan-spider.html"))
 		new(notify.ModuleStruct).Run(notify.Params{
 			Msg: fmt.Sprintf("Task Name: %s, xscan-spider.json Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xscan-spider.json"))),
 		})
@@ -270,6 +272,7 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		Output: filepath.Join(vulscanOutDir, "xscan-links.json"),
 	})
 	if fileutil.IsFile(filepath.Join(vulscanOutDir, "xscan-links.json")) {
+		xscan.Clean(filepath.Join(vulscanOutDir, "xscan-links.json"), filepath.Join(vulscanOutDir, "xscan-links.html"))
 		new(notify.ModuleStruct).Run(notify.Params{
 			Msg: fmt.Sprintf("Task Name: %s, xscan-links.json Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xscan-links.json"))),
 		})
