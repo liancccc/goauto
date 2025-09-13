@@ -1,6 +1,8 @@
 package workflow
 
 import (
+	"fmt"
+	"net/url"
 	"path/filepath"
 	"sync"
 
@@ -8,19 +10,23 @@ import (
 	"github.com/liancccc/goauto/internal/modules"
 	"github.com/liancccc/goauto/internal/modules/alterx"
 	"github.com/liancccc/goauto/internal/modules/cdncheck"
+	"github.com/liancccc/goauto/internal/modules/dnsx"
 	"github.com/liancccc/goauto/internal/modules/gospider"
 	httpx_info "github.com/liancccc/goauto/internal/modules/httpx/info"
 	httpx_unique "github.com/liancccc/goauto/internal/modules/httpx/unique"
 	"github.com/liancccc/goauto/internal/modules/katana"
-	"github.com/liancccc/goauto/internal/modules/ksubdomain/enum"
-	"github.com/liancccc/goauto/internal/modules/ksubdomain/verify"
+	ksubdomain_enum "github.com/liancccc/goauto/internal/modules/ksubdomain/enum"
+	ksubdomain_verify "github.com/liancccc/goauto/internal/modules/ksubdomain/verify"
 	"github.com/liancccc/goauto/internal/modules/merge"
 	"github.com/liancccc/goauto/internal/modules/naabu"
+	"github.com/liancccc/goauto/internal/modules/notify"
 	"github.com/liancccc/goauto/internal/modules/nuclei"
 	"github.com/liancccc/goauto/internal/modules/oneforall"
 	"github.com/liancccc/goauto/internal/modules/subfinder"
+	"github.com/liancccc/goauto/internal/modules/uncover"
 	"github.com/liancccc/goauto/internal/modules/unique"
 	"github.com/liancccc/goauto/internal/modules/urlfinder"
+	"github.com/liancccc/goauto/internal/modules/uro"
 	"github.com/liancccc/goauto/internal/modules/xray"
 	xscan_spider "github.com/liancccc/goauto/internal/modules/xscan/spider"
 	"github.com/projectdiscovery/gologger"
@@ -38,7 +44,7 @@ func (f *DomainALLFlow) Name() string {
 }
 
 func (f *DomainALLFlow) Description() string {
-	return "子域名收集 -> CDN识别 -> 端口扫描[TOP-1000] -> 验活去重 -> WEB获取信息和截图 -> 爬虫 -> 漏洞扫描"
+	return "子域名收集 -> CDN识别 -> 端口扫描[TOP-1000] -> 测绘资产 -> 验活去重 -> WEB获取信息和截图 -> 爬虫 -> 漏洞扫描"
 }
 
 func (f *DomainALLFlow) Run(runner *Runner) {
@@ -63,7 +69,7 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 	new(ksubdomain_enum.ModuleStruct).Run(modules.BaseParams{
 		Target:  runner.opt.Target,
 		Output:  filepath.Join(subdomainOutDir, "ksubdomain.txt"),
-		Timeout: "5m",
+		Timeout: "5h",
 	})
 	new(merge.ModuleStruct).Run(merge.Params{
 		BaseParams: &modules.BaseParams{
@@ -71,6 +77,7 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		},
 		Targets: []string{filepath.Join(subdomainOutDir, "subfinder.txt"), filepath.Join(subdomainOutDir, "oneforall.txt"), filepath.Join(subdomainOutDir, "ksubdomain.txt")},
 	})
+
 	new(alterx.ModuleStruct).Run(modules.BaseParams{
 		Target: filepath.Join(subdomainOutDir, "merge.txt"),
 		Output: filepath.Join(subdomainOutDir, "alterx.txt"),
@@ -114,11 +121,65 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 	// 对非 CDN 目标进行端口扫描
 	var portscanOutDir = filepath.Join(runner.workSpace, "portscan")
 	if fileutil.CountLines(filepath.Join(cdncheckOutDir, "noCdn.txt")) > 0 {
-		new(naabu.ModuleStruct).Run(modules.BaseParams{
+		// 解析域名获取 IP 地址
+		new(dnsx.ModuleStruct).Run(modules.BaseParams{
 			Target: filepath.Join(cdncheckOutDir, "noCdn.txt"),
+			Output: filepath.Join(portscanOutDir, "dnsx.json"),
+		})
+		// 解析 IP 地址, 获取 IP 和域名列表映射
+		ipDomainsMap, _ := dnsx.CleanAndGenCustomizeFormat(filepath.Join(portscanOutDir, "dnsx.json"), filepath.Join(portscanOutDir, "ips.txt"))
+		// 端口扫描, 获取如 ssh://ip:port, http://ip:port 的链接
+		new(naabu.ModuleStruct).Run(modules.BaseParams{
+			Target: filepath.Join(portscanOutDir, "ips.txt"),
 			Output: filepath.Join(portscanOutDir, "noCdn-services.txt"),
 		})
+		// 给 http 服务把 IP 对应的域名都添加上
+		if fileutil.CountLines(filepath.Join(portscanOutDir, "noCdn-services.txt")) > 0 {
+			var services []string
+			serviceUrls := fileutil.ReadingLines(filepath.Join(portscanOutDir, "noCdn-services.txt"))
+			for _, serviceUrl := range serviceUrls {
+				parseUrl, err := url.Parse(serviceUrl)
+				if err != nil {
+					services = append(services, serviceUrl)
+					continue
+				}
+				if _, exists := ipDomainsMap[parseUrl.Hostname()]; !exists {
+					continue
+				}
+				if parseUrl.Scheme == "http" || parseUrl.Scheme == "https" {
+					for _, domain := range ipDomainsMap[parseUrl.Hostname()] {
+						services = append(services, fmt.Sprintf("%s://%s:%s", parseUrl.Scheme, domain, parseUrl.Port()))
+					}
+				} else {
+					services = append(services, serviceUrl)
+				}
+			}
+			fileutil.WriteSliceToFile(filepath.Join(portscanOutDir, "services.txt"), services)
+		}
 	}
+	// 从测绘平台拉取服务信息 quake, 目前每其他的
+	var uncoverOutDir = filepath.Join(runner.workSpace, "uncover")
+	var uncoverTargets []uncover.Target
+	if fileutil.IsFile(runner.opt.Target) {
+		var domains = fileutil.ReadingLines(runner.opt.Target)
+		for _, domain := range domains {
+			uncoverTargets = append(uncoverTargets, uncover.Target{
+				Query:  fmt.Sprintf(`domain:"%s"`, domain),
+				Engine: "quake",
+			})
+		}
+	} else {
+		uncoverTargets = append(uncoverTargets, uncover.Target{
+			Query:  fmt.Sprintf(`domain:"%s"`, runner.opt.Target),
+			Engine: "quake",
+		})
+	}
+	new(uncover.ModuleStruct).Run(uncover.Params{
+		BaseParams: &modules.BaseParams{
+			Output: filepath.Join(uncoverOutDir, "services.txt"),
+		},
+		Targets: uncoverTargets,
+	})
 
 	// URL 去重验活 + 获取截图等信息
 	var httpxOutDir = filepath.Join(runner.workSpace, "httpx")
@@ -126,14 +187,21 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		new(httpx_unique.ModuleStruct).Run(modules.BaseParams{
 			Target:          filepath.Join(cdncheckOutDir, "cdn.txt"),
 			Output:          filepath.Join(httpxOutDir, "cdn-alive.txt"),
-			CustomizeParams: "-mc 200,302 -p 80,443,8080,8000,8888,4848,7070,8089,8181,9080,9443,5000,8443,5001,81,8081,50805,3000,88,7547",
+			CustomizeParams: "-p 80,443,8080,8000,8888,4848,7070,8089,8181,9080,9443,5000,8443,5001,81,8081,50805,3000,88,7547",
 			Proxy:           runner.opt.Proxy,
 		})
 	}
-	if fileutil.CountLines(filepath.Join(portscanOutDir, "noCdn-services.txt")) > 0 {
+	if fileutil.CountLines(filepath.Join(portscanOutDir, "services.txt")) > 0 {
 		new(httpx_unique.ModuleStruct).Run(modules.BaseParams{
-			Target: filepath.Join(portscanOutDir, "noCdn-services.txt"),
+			Target: filepath.Join(portscanOutDir, "services.txt"),
 			Output: filepath.Join(httpxOutDir, "noCdn-alive.txt"),
+			Proxy:  runner.opt.Proxy,
+		})
+	}
+	if fileutil.CountLines(filepath.Join(uncoverOutDir, "services.txt")) > 0 {
+		new(httpx_unique.ModuleStruct).Run(modules.BaseParams{
+			Target: filepath.Join(uncoverOutDir, "services.txt"),
+			Output: filepath.Join(httpxOutDir, "uncover-alive.txt"),
 			Proxy:  runner.opt.Proxy,
 		})
 	}
@@ -142,7 +210,7 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		BaseParams: &modules.BaseParams{
 			Output: filepath.Join(httpxOutDir, "merge.txt"),
 		},
-		Targets: []string{filepath.Join(httpxOutDir, "noCdn-alive.txt"), filepath.Join(httpxOutDir, "cdn-alive.txt")},
+		Targets: []string{filepath.Join(httpxOutDir, "noCdn-alive.txt"), filepath.Join(httpxOutDir, "cdn-alive.txt"), filepath.Join(httpxOutDir, "uncover-alive.txt")},
 	})
 
 	new(unique.ModuleStruct).Run(modules.BaseParams{
@@ -179,25 +247,54 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		Targets: []string{filepath.Join(spiderOutDir, "gospider.txt"), filepath.Join(spiderOutDir, "katana.txt"), filepath.Join(spiderOutDir, "urlfinder.txt")},
 	})
 
-	new(unique.ModuleStruct).Run(modules.BaseParams{
+	// 爬虫链接去重
+	new(uro.ModuleStruct).Run(modules.BaseParams{
 		Target: filepath.Join(spiderOutDir, "all.txt"),
 		Output: filepath.Join(spiderOutDir, "links.txt"),
 	})
 
 	// 漏洞扫描
 	var vulscanOutDir = filepath.Join(runner.workSpace, "vulscan")
-	new(nuclei.ModuleStruct).Run(modules.BaseParams{
+	new(xscan_spider.ModuleStruct).Run(modules.BaseParams{
 		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(vulscanOutDir, "nuclei.txt"),
+		Output: filepath.Join(vulscanOutDir, "xscan-spider.json"),
 	})
+	if fileutil.IsFile(filepath.Join(vulscanOutDir, "xscan-spider.json")) {
+		new(notify.ModuleStruct).Run(notify.Params{
+			Msg: fmt.Sprintf("Task Name: %s, xscan-spider.json Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xscan-spider.json"))),
+		})
+	}
+
 	new(xscan_spider.ModuleStruct).Run(modules.BaseParams{
 		Target: filepath.Join(spiderOutDir, "links.txt"),
-		Output: filepath.Join(vulscanOutDir, "xscan.json"),
+		Output: filepath.Join(vulscanOutDir, "xscan-links.json"),
 	})
+	if fileutil.IsFile(filepath.Join(vulscanOutDir, "xscan-links.json")) {
+		new(notify.ModuleStruct).Run(notify.Params{
+			Msg: fmt.Sprintf("Task Name: %s, xscan-links.json Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xscan-links.json"))),
+		})
+	}
+
 	new(xray.ModuleStruct).Run(xray.Params{
 		BaseParams: &modules.BaseParams{
 			Target: filepath.Join(spiderOutDir, "links.txt"),
-			Output: filepath.Join(vulscanOutDir, "xray.html"),
+			Output: filepath.Join(vulscanOutDir, "xray-links.html"),
 		},
 	})
+	if fileutil.IsFile(filepath.Join(vulscanOutDir, "xray-links.html")) {
+		new(notify.ModuleStruct).Run(notify.Params{
+			Msg: fmt.Sprintf("Task Name: %s, xray-links.html Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xray-links.html"))),
+		})
+	}
+
+	new(nuclei.ModuleStruct).Run(modules.BaseParams{
+		Target: filepath.Join(httpxOutDir, "all.txt"),
+		Output: filepath.Join(vulscanOutDir, "nuclei.txt"),
+		Proxy:  runner.opt.Proxy,
+	})
+	if fileutil.IsFile(filepath.Join(vulscanOutDir, "nuclei.txt")) {
+		new(notify.ModuleStruct).Run(notify.Params{
+			Msg: fmt.Sprintf("Task Name: %s, nuclei.txt Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "nuclei.txt"))),
+		})
+	}
 }

@@ -1,13 +1,14 @@
-package ksubdomain_verify
+package dnsx
+
+// 同样可以做子域名爆破, 不过这里用来解析域名 a 记录
 
 import (
 	"fmt"
-	"path/filepath"
+	"strings"
 
 	"github.com/liancccc/goauto/internal/executil"
 	"github.com/liancccc/goauto/internal/fileutil"
 	"github.com/liancccc/goauto/internal/modules"
-	"github.com/liancccc/goauto/internal/modules/ksubdomain"
 	"github.com/projectdiscovery/gologger"
 )
 
@@ -16,11 +17,24 @@ func init() {
 }
 
 type ModuleStruct struct {
-	*ksubdomain.KBaseModule
 }
 
 func (m *ModuleStruct) Name() string {
-	return "ksubdomain verify"
+	return "dnsx"
+}
+
+func (m *ModuleStruct) Install() error {
+	var installCmd = "go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest"
+	_, err := executil.RunCommandSteamOutput(installCmd)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *ModuleStruct) CheckInstalled() bool {
+	commandSteamOutput, _ := executil.RunCommandSteamOutput("dnsx")
+	return strings.Contains(commandSteamOutput, "projectdiscovery.io")
 }
 
 func (m *ModuleStruct) Run(funcParams any) {
@@ -29,22 +43,16 @@ func (m *ModuleStruct) Run(funcParams any) {
 		gologger.Error().Str("module", m.Name()).Msg("invalid params")
 		return
 	}
+
 	_ = params.MkOutDir()
-	var toolOut = filepath.Join(filepath.Dir(params.Output), "ksubdomain-verify.json")
-	fileutil.Remove(toolOut)
-	var command = fmt.Sprintf("ksubdomain verify -f %s --output-type json -o %s --wild-filter-mode advanced", params.Target, toolOut)
+
+	var command = fmt.Sprintf("dnsx -l %s -json -a -o %s", params.Target, params.Output)
+
 	_, err := executil.RunCommandSteamOutput(command, params.Timeout)
 	if err != nil {
 		gologger.Error().Str("module", m.Name()).Msg(err.Error())
 		return
 	}
-	err = ksubdomain.CleanResult(toolOut, params.Output)
-	if err != nil {
-		gologger.Error().Str("module", m.Name()).Msg(err.Error())
-		return
-	}
-	fileutil.Remove(toolOut)
 	var msg = fmt.Sprintf("Output: %s, Count: %d", params.Output, fileutil.CountLines(params.Output))
 	gologger.Info().Str("module", m.Name()).Msg(msg)
-
 }

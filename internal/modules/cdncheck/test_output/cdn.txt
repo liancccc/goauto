@@ -1,0 +1,16 @@
+replays-static-api.nkstatic.com
+btd6-assets.nkstatic.com
+avatars.nkstatic.com
+fast-static-api.nkstatic.com
+priority-static-api.nkstatic.com
+static.nkstatic.com
+cdn.nkstatic.com
+nkstatic.com
+bundles.nkstatic.com
+priority-static-api-staging.nkstatic.com
+replays-static-api-staging.nkstatic.com
+static-api.nkstatic.com
+static-api-staging.nkstatic.com
+thumbs.nkstatic.com
+assets.nkstatic.com
+games.nkstatic.com

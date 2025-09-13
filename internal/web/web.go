@@ -8,6 +8,11 @@ import (
 )
 
 func StartWebServer(opts *options.Options) {
+	initTaskPool(opts.MaxTaskNum)
+	defer func() {
+		taskPool.Release()
+		close(execTaskQueue)
+	}()
 	r := gin.Default()
 	setAuth(r, opts)
 	setStatic(r)
@@ -50,6 +55,7 @@ func setRouter(r *gin.Engine) {
 	r.GET("/execHelp", execHelpHandler)
 	r.GET("/task/list", getALLTaskDBHandler)
 	r.DELETE("/task/", deleteTaskDir)
+	r.GET("/task/status", getTaskQueueStatusHandler)
 	r.GET("/task/detail", getTaskDetail)
 	r.GET("/system/info", getSysInfoHandler)
 	r.POST("/upload/targets", uploadTargets)

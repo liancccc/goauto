@@ -21,9 +21,9 @@ func TestRunHostNaabu(t *testing.T) {
 }
 
 func TestRunHostNaabuFile(t *testing.T) {
-	var target = "targets.txt"
+	var target = "C:\\Users\\admin\\goauto-workspace\\nkstatic.com\\cdncheck\\noCdn.txt"
 	new(ModuleStruct).Run(modules.BaseParams{
 		Target: target,
-		Output: "test_output/services.txt",
+		Output: "C:\\Users\\admin\\goauto-workspace\\nkstatic.com\\portscan\\noCdn-services.txt",
 	})
 }

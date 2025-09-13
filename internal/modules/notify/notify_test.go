@@ -1,9 +1,8 @@
-package xscan_spider
+package notify
 
 import (
 	"testing"
 
-	"github.com/liancccc/goauto/internal/modules"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/gologger/levels"
 )
@@ -12,10 +11,10 @@ func init() {
 	gologger.DefaultLogger.SetMaxLevel(levels.LevelDebug)
 }
 
-func TestUrls(t *testing.T) {
-	params := modules.BaseParams{
-		Target: "http://testphp.vulnweb.com",
-		Output: "xscan.json",
+func TestName(t *testing.T) {
+	params := Params{
+		Msg:  "发送测试",
+		File: "targets.txt",
 	}
 	new(ModuleStruct).Run(params)
 }

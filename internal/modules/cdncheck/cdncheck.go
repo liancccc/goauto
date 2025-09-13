@@ -54,8 +54,8 @@ func (m *ModuleStruct) Run(funcParams any) {
 
 	fileutil.MakeDir(filepath.Dir(params.CDNPath))
 	fileutil.MakeDir(filepath.Dir(params.NoCDNPath))
-	var toolOut = filepath.Join(filepath.Dir(params.CDNPath), "cdncheck.txt")
-	var command = fmt.Sprintf("cdncheck -i %s -resp -nc -o %s", params.Target, toolOut)
+	var toolOut = filepath.Join(filepath.Dir(params.CDNPath), "cdncheck.json")
+	var command = fmt.Sprintf("cdncheck -i %s -jsonl -o %s", params.Target, toolOut)
 
 	_, err := executil.RunCommandSteamOutput(command, params.Timeout)
 	if err != nil {

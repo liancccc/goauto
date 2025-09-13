@@ -1,6 +1,31 @@
 
 
-## 简介
+### BUG
+
+- [x] 任务排序
+- [x] 运行状态才获取子进程
+- [x] 详情新标签页
+- [ ] 日志链接按钮
+- [ ] ~~添加 IPV6~~ 
+- [ ] ~~输入是否存在的判断~~
+- [x] cdncheck 解析问题 使用 JSON
+- [x] ksubdomain 结果解析问题 使用 JSON
+- [x] dnsx 解析问题
+- [x] 漏扫扫的是 link 所以需要时间戳来命名文件 加并发 或者就 --file 
+- [x] gau 去重
+- [x] 通知
+- [ ] 动态爬虫
+- [x] uncover 从测绘获取服务链接
+
+```
+python -m uro.uro --help
+3
+https://github.com/s0md3v/uro
+```
+
+![image-20250912002236921](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250912002236921.png)
+
+## 介绍
 
 *GOAUTO* 的目的是解放渗透测试过程中需要使用多种工具，将各种工具的安装和使用集成于一体，解放双手。
 
@@ -8,11 +33,13 @@
 
 [Osmedeus](https://github.com/j3ssie/osmedeus) 可以说是调用二进制工具实现工作流一个很好的工具，可以通过 `yaml` 来实现各种模块的工作流，由代码提供自定义 Script 配合系统命令实现一个更自由的工具流，所有参数可控，命令可控，但是由于基于 `yaml` 编写太不习惯，一些细节不好把控，所以再编写一版简单的 *GOAUTO*。
 
-## 初始化
+## 安装
+
+### 工具结构
 
 ![image-20250911162519370](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911162519370.png)
 
-前提所需环境：
+### 所需环境
 
 - nmap
 - libpcap
@@ -21,7 +48,7 @@
 - golang
 - xscan
 
-命令执行使用 powershell 和 bash。
+命令执行使用 powershell 和 bash，测试于 windows11 和 ubuntu22。
 
 其余工具会通过 git、go 和下载可执行文件的方式自动下载。
 
@@ -30,6 +57,16 @@
 ```
 apt-get install build-essential
 apt-get install libpcap-dev # 选 18 然后重启
+```
+
+如果 httpx 截图报 rad 缺少依赖的话：
+
+```
+apt install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxss1 libxcomposite1 libxrandr2 libasound2 libpangocairo-1.0-0 libgtk-3-0
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome*; sudo apt-get -f install
+apt-get install google-chrome-stable
 ```
 
 Golang 安装：
@@ -43,17 +80,18 @@ source ~/.bash_profile
 bash -c go
 ```
 
-工具初始化：
+### 初始化
 
 ```
 go install -v github.com/liancccc/goauto@latest
 goauto install
 ```
 
-一些工具会报毒比如 xray 如果被删就手动下载加到白名单，其中有 2 个工具是 fork 到自己的仓库，如果介意就自己下载：
+一些工具会报毒比如 xray 如果被删就手动下载加到白名单，其中有几个工具是 fork 到自己的仓库，如果介意就自己下载：
 
 - oneforall：注释爆破相关，因为安装 pip 会报错
 - cdncheck：添加国内源和并发扫描
+- uro：windows 环境下 -o 的 gbk 问题
 
 初始化包含 3 个部分：
 
@@ -65,7 +103,17 @@ goauto install
 
 ![image-20250911162903696](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911162903696.png)
 
-## 工具使用
+### 通知配置
+
+Goauto 的理念是将各种优秀工具功能作为模块，然后附加到工作流中。
+
+通知同样是借助工具实现，后续如果想添加其他功能也推荐独立成工具。
+
+使用项目：https://github.com/projectdiscovery/notify
+
+支持各种通常如 tg、smtp 等等，默认工作流通知的是漏扫结果
+
+## 使用
 
 ### 列出工作流
 
@@ -79,11 +127,17 @@ goauto flows
 
 ```
 goauto scan -h
+
+goauto scan --target vulnweb.com --flow DomainALL --debug
 ```
 
 ![image-20250911204723041](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204723041.png)
 
 ### WEB模式
+
+主要参考的也是 osm ，osm 的 WEB 会把每个模块的报告展示出来，直接去查看原始的输出，这点是之前没有想到过的。这就更轻量级了，不需要什么数据库什么展示，只需要原原本本的展示就可以了，毕竟如果添加了数据库，那就会把这件事情变得复杂。
+
+前端是基于 daisyui 写的，可以参考 https://daisyui.com/docs/editor/cursor/ 用 Cursor 自己改。
 
 ```
 goauto web
@@ -91,7 +145,13 @@ goauto web
 
 ![image-20250911204806791](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250911204806791.png)
 
-后台提供命令执行的功能方便下发任务，没有做过滤，没啥必要，所以认证不要设置的太弱。
+后台提供命令执行的功能方便自动化下发任务，没有做过滤，没啥必要，而且我有执行其他命令的需求。所以认证自己不要设置的太弱，或者就是默认的随机。
+
+## 记录
+
+2025-09-12 开始自动监控国外 SRC 的新增域名下发任务，看看一个月会不会有点收益，把服务器费给赚出来。
+
+
 
 ## 如何添加工具和自定义工作流?
 

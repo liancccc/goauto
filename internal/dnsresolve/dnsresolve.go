@@ -3,6 +3,7 @@ package dnsresolve
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"net"
 	"os"
 	"path/filepath"
@@ -11,6 +12,8 @@ import (
 
 	"github.com/liancccc/goauto/internal/fileutil"
 	"github.com/panjf2000/ants/v2"
+	"github.com/projectdiscovery/dnsx/libs/dnsx"
+	"github.com/projectdiscovery/gologger"
 )
 
 type Resolve struct {
@@ -74,6 +77,7 @@ func doFileResolve(targetFile, ipDomainDir, ipOutput string) error {
 		defer processWg.Done()
 		seen := make(map[string]struct{})
 		for result := range results {
+			gologger.Debug().Msgf("IP: %s Domain: %s\n", result.IP, result.Domain)
 			ip := net.ParseIP(result.IP)
 			if ip == nil {
 				continue
@@ -89,16 +93,28 @@ func doFileResolve(targetFile, ipDomainDir, ipOutput string) error {
 
 	var wg sync.WaitGroup
 	pool, _ := ants.NewPoolWithFunc(5, func(i interface{}) {
-		resolve, err := resolveDomain(i.(string))
-		if err == nil && resolve != nil {
-			results <- resolve
+		dnsClient, err := dnsx.New(dnsx.DefaultOptions)
+		if err != nil {
+			gologger.Debug().Msgf("Error resolving domain: %s %s\n", err.Error(), i.(string))
+			return
+		}
+		result, err := dnsClient.Lookup(i.(string))
+		println(i.(string))
+		if err != nil {
+			fmt.Printf("err: %v\n", err)
+			return
+		}
+
+		println(strings.Join(result, " "))
+		results <- &Resolve{
+			Domain: i.(string),
+			IP:     result[0],
 		}
 		wg.Done()
 	})
 	defer pool.Release()
 
 	scanner := bufio.NewScanner(file)
-	scanner.Buffer(make([]byte, 0, 64*1024), 1024*1024)
 	for scanner.Scan() {
 		val := strings.TrimSpace(scanner.Text())
 		if val == "" {

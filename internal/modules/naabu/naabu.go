@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -45,7 +44,6 @@ func (m *ModuleStruct) CheckInstalled() bool {
 
 type naabuHostScanParams struct {
 	Host       string
-	Domains    []string
 	BaseParams *modules.BaseParams
 }
 
@@ -59,20 +57,6 @@ func (m *ModuleStruct) Run(funcParams any) {
 		params.CustomizeParams = "-top-ports 1000 -Pn -timeout 30 -warm-up-time 5 -scan-type CONNECT"
 	}
 	_ = params.MkOutDir()
-
-	var outputDir = filepath.Dir(params.Output)
-	var ipDomainsDir = filepath.Join(outputDir, "ip-domains")
-	var ipOutput = filepath.Join(outputDir, "ips.txt")
-
-	dnsresolve.DoResolve(params.Target, ipDomainsDir, ipOutput)
-	if !fileutil.FileExists(ipOutput) {
-		gologger.Info().Str("ipOutput", ipOutput).Msg("dns resolve ipsFile is not exists")
-		return
-	}
-	defer func() {
-		fileutil.Remove(ipDomainsDir)
-		fileutil.Remove(ipOutput)
-	}()
 
 	var processWg sync.WaitGroup
 	processWg.Add(1)
@@ -101,23 +85,21 @@ func (m *ModuleStruct) Run(funcParams any) {
 		}
 	})
 	defer pool.Release()
-
-	ipsFile, err := os.Open(ipOutput)
-	if err != nil {
-		gologger.Fatal().Msgf("error opening ips file: %v", err)
-		return
+	var hosts []string
+	if params.IsFileTarget() {
+		hosts = fileutil.ReadingLines(params.Target)
+	} else {
+		hosts = []string{params.Target}
 	}
-	defer ipsFile.Close()
-	scanner := bufio.NewScanner(ipsFile)
-	for scanner.Scan() {
-		val := strings.TrimSpace(scanner.Text())
-		if val == "" {
+
+	for _, host := range hosts {
+		host = strings.TrimSpace(host)
+		if host == "" {
 			continue
 		}
 		wg.Add(1)
 		_ = pool.Invoke(naabuHostScanParams{
-			Host:       val,
-			Domains:    fileutil.ReadingLines(filepath.Join(ipDomainsDir, dnsresolve.GetIPFormatFileName(val))),
+			Host:       host,
 			BaseParams: &params,
 		})
 	}
@@ -148,22 +130,7 @@ func runNaabuHostScan(params *naabuHostScanParams) ([]string, error) {
 		return services, err
 	}
 	for _, serviceUrl := range nmapServices {
-		if len(params.Domains) == 0 {
-			services = append(services, serviceUrl)
-			continue
-		}
-		parseUrl, err := url.Parse(serviceUrl)
-		if err != nil {
-			services = append(services, serviceUrl)
-			continue
-		}
-		if parseUrl.Scheme == "http" || parseUrl.Scheme == "https" {
-			for _, domain := range params.Domains {
-				services = append(services, fmt.Sprintf("%s://%s:%s", parseUrl.Scheme, domain, parseUrl.Port()))
-			}
-		} else {
-			services = append(services, serviceUrl)
-		}
+		services = append(services, serviceUrl)
 	}
 	fileutil.Remove(toolOutput)
 	return services, nil

@@ -22,7 +22,7 @@
                 </div>
                 <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li><a href="index.html" class="active">主页</a></li>
-                    <li><a href="commands.html">命令</a></li>
+                    <li><a href="commands.html" target="_blank">命令</a></li>
                 </ul>
             </div>
             <a class="btn btn-ghost text-xl font-bold">
@@ -37,7 +37,7 @@
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
                 <li><a href="index.html" class="active">主页</a></li>
-                <li><a href="commands.html">命令</a></li>
+                <li><a href="commands.html" target="_blank">命令</a></li>
             </ul>
         </div>
         <div class="navbar-end">
@@ -85,12 +85,25 @@
         <!-- 任务列表 -->
         <div class="card shadow-xl">
             <div class="card-body">
-                <h2 class="card-title mb-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                    </svg>
-                    任务列表
-                </h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="card-title">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        任务列表
+                    </h2>
+                    <!-- 任务状态统计 -->
+                    <div class="flex gap-4 items-center">
+                        <div class="stat bg-base-200 rounded-lg px-4 py-2">
+                            <div class="stat-title text-xs">运行中</div>
+                            <div class="stat-value text-lg text-base-content" id="running-count">0</div>
+                        </div>
+                        <div class="stat bg-base-200 rounded-lg px-4 py-2">
+                            <div class="stat-title text-xs">等待中</div>
+                            <div class="stat-value text-lg text-base-content" id="waiting-count">0</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="overflow-x-auto">
                     <table class="table table-zebra">
                         <thead>

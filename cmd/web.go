@@ -21,4 +21,5 @@ func init() {
 	webCmd.PersistentFlags().StringVarP(&opt.WebServer.Addr, "addr", "", "0.0.0.0:8848", "")
 	webCmd.PersistentFlags().StringVarP(&opt.WebServer.User, "user", "", "", "")
 	webCmd.PersistentFlags().StringVarP(&opt.WebServer.Pass, "pass", "", "", "")
+	webCmd.PersistentFlags().IntVarP(&opt.MaxTaskNum, "max-task", "", 3, "")
 }

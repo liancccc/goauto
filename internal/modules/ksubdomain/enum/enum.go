@@ -30,13 +30,13 @@ func (m *ModuleStruct) Run(funcParams any) {
 		return
 	}
 	_ = params.MkOutDir()
-	var toolOut = filepath.Join(filepath.Dir(params.Output), "ksubdomain-enum.txt")
+	var toolOut = filepath.Join(filepath.Dir(params.Output), "ksubdomain-enum.json")
 	fileutil.Remove(toolOut)
 	var command string
 	if params.IsFileTarget() {
-		command = fmt.Sprintf("ksubdomain enum -ds %s -o %s", params.Target, toolOut)
+		command = fmt.Sprintf("ksubdomain enum -ds %s --wild-filter-mode basic --output-type json -o %s", params.Target, toolOut)
 	} else {
-		command = fmt.Sprintf("ksubdomain enum -d %s -o %s", params.Target, toolOut)
+		command = fmt.Sprintf("ksubdomain enum -d %s --wild-filter-mode basic --output-type json -o %s", params.Target, toolOut)
 	}
 
 	if params.Dict != "" {

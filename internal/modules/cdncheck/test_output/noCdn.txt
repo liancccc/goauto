@@ -1,0 +1,5 @@
+bmcdlc.nkstatic.com
+cf-static-api-staging.nkstatic.com
+forums.nkstatic.com
+monkeycity-dlc-staging.nkstatic.com
+monkeycity-dlc.nkstatic.com

@@ -6,6 +6,7 @@ import (
 	"bufio"
 	"encoding/csv"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -14,6 +15,33 @@ import (
 	"github.com/projectdiscovery/gologger"
 	"github.com/thoas/go-funk"
 )
+
+func WriteTempFile(data string) (string, error) {
+	tmpFile, err := os.CreateTemp("", "goauto-*.temp")
+	if err != nil {
+		return "", err
+	}
+	defer tmpFile.Close()
+	_, err = tmpFile.WriteString(data)
+	if err != nil {
+		return "", err
+	}
+	return tmpFile.Name(), nil
+}
+
+// GetFileContent Reading file and return content of it
+func GetFileContent(filename string) (string, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+	b, err := io.ReadAll(file)
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
+}
 
 func Cleaning(folder string, reports []string) {
 	gologger.Info().Msgf("Cleaning result: %v %v", folder, reports)

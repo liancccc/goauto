@@ -14,10 +14,12 @@ let serverStats = {
 function initializeApp() {
     loadServerStats();
     loadTaskList();
+    loadTaskStatus();
     setupEventListeners();
     
-    // 定期刷新任务列表
+    // 定期刷新任务列表和状态
     setInterval(loadTaskList, 10000); // 每10秒刷新一次
+    setInterval(loadTaskStatus, 5000); // 每5秒刷新任务状态
 }
 
 // 加载服务器统计信息
@@ -125,6 +127,30 @@ function loadTaskList() {
         });
 }
 
+// 加载任务状态统计
+function loadTaskStatus() {
+    fetch('/task/status')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                updateTaskStatus(data.data);
+                console.log('任务状态更新成功:', data.data);
+            } else {
+                throw new Error(data.message || '获取任务状态失败');
+            }
+        })
+        .catch(error => {
+            console.error('获取任务状态失败:', error);
+            // 如果API调用失败，显示默认值
+            updateTaskStatus({ running: 0, waiting: 0 });
+        });
+}
+
 // 更新任务列表
 function updateTaskList(tasks) {
     const taskListEl = document.getElementById('task-list');
@@ -151,6 +177,20 @@ function updateTaskList(tasks) {
         const row = createTaskRow(task);
         taskListEl.appendChild(row);
     });
+}
+
+// 更新任务状态统计显示
+function updateTaskStatus(statusData) {
+    const runningCountEl = document.getElementById('running-count');
+    const waitingCountEl = document.getElementById('waiting-count');
+    
+    if (runningCountEl) {
+        runningCountEl.textContent = statusData.running || 0;
+    }
+    
+    if (waitingCountEl) {
+        waitingCountEl.textContent = statusData.waiting || 0;
+    }
 }
 
 // 创建任务行
@@ -224,7 +264,7 @@ function getTaskAvatar(name) {
 
 // 查看任务详情
 function viewTaskDetail(taskName) {
-    window.location.href = `task-detail.html?task=${encodeURIComponent(taskName)}`;
+    window.open(`task-detail.html?task=${encodeURIComponent(taskName)}`, '_blank');
 }
 
 // 删除任务

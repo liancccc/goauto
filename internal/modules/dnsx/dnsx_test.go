@@ -1,4 +1,4 @@
-package xscan_spider
+package dnsx
 
 import (
 	"testing"
@@ -12,10 +12,14 @@ func init() {
 	gologger.DefaultLogger.SetMaxLevel(levels.LevelDebug)
 }
 
-func TestUrls(t *testing.T) {
+func TestDomainFile(t *testing.T) {
 	params := modules.BaseParams{
-		Target: "http://testphp.vulnweb.com",
-		Output: "xscan.json",
+		Target: "noCdn.txt",
+		Output: "test_output/dnsx.json",
 	}
 	new(ModuleStruct).Run(params)
+}
+
+func TestClean(t *testing.T) {
+	t.Log(CleanAndGenCustomizeFormat("test_output/dnsx.json", "test_output/ips.txt"))
 }

@@ -55,7 +55,7 @@ func (runner *Runner) seLoggerFile() error {
 
 func (runner *Runner) Run() error {
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGQUIT)
+	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM, os.Kill)
 	go func() {
 		for range c {
 			gologger.Info().Msg("Received an interrupt, stopping...")

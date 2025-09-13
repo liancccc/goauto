@@ -11,6 +11,7 @@ import (
 
 	_ "github.com/liancccc/goauto/internal/modules/alterx"
 	_ "github.com/liancccc/goauto/internal/modules/cdncheck"
+	_ "github.com/liancccc/goauto/internal/modules/dnsx"
 	_ "github.com/liancccc/goauto/internal/modules/gospider"
 	_ "github.com/liancccc/goauto/internal/modules/httpx/info"
 	_ "github.com/liancccc/goauto/internal/modules/httpx/unique"
@@ -19,11 +20,14 @@ import (
 	_ "github.com/liancccc/goauto/internal/modules/ksubdomain/verify"
 	_ "github.com/liancccc/goauto/internal/modules/merge"
 	_ "github.com/liancccc/goauto/internal/modules/naabu"
+	_ "github.com/liancccc/goauto/internal/modules/notify"
 	_ "github.com/liancccc/goauto/internal/modules/nuclei"
 	_ "github.com/liancccc/goauto/internal/modules/oneforall"
 	_ "github.com/liancccc/goauto/internal/modules/subfinder"
+	_ "github.com/liancccc/goauto/internal/modules/uncover"
 	_ "github.com/liancccc/goauto/internal/modules/unique"
 	_ "github.com/liancccc/goauto/internal/modules/urlfinder"
+	_ "github.com/liancccc/goauto/internal/modules/uro"
 	_ "github.com/liancccc/goauto/internal/modules/xray"
 	_ "github.com/liancccc/goauto/internal/modules/xscan/spider"
 )

@@ -1,15 +1,17 @@
 package ksubdomain
 
 import (
-	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
-	"strings"
 
 	"github.com/liancccc/goauto/internal/fileutil"
 	"github.com/projectdiscovery/gologger"
 )
+
+type JsonData struct {
+	Subdomain string `json:"subdomain"`
+}
 
 func CleanResult(src string, dest string) error {
 	gologger.Info().Msgf("Cleaning Ksubdomain result: %s => %s", src, dest)
@@ -18,42 +20,22 @@ func CleanResult(src string, dest string) error {
 		return errors.New(fmt.Sprintf("no results found in %s", src))
 	}
 
-	destFile, err := os.OpenFile(dest, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	var subdomains []string
+	var jsonData []JsonData
+	fileContent, err := fileutil.GetFileContent(src)
 	if err != nil {
 		return err
 	}
-	writer := bufio.NewWriter(destFile)
-
-	defer func() {
-		writer.Flush()
-		destFile.Close()
-	}()
-
-	srcFile, err := os.Open(src)
-	if err != nil {
+	if err := json.Unmarshal([]byte(fileContent), &jsonData); err != nil {
 		return err
 	}
-	defer srcFile.Close()
-
-	scanner := bufio.NewScanner(srcFile)
-
-	var seen = make(map[string][]string)
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		parts := strings.Split(line, "=>")
-		domain := parts[0]
-		hash := strings.Join(parts[1:], ",")
-		if len(seen[hash]) < 15 {
-			seen[hash] = append(seen[hash], domain)
-			writer.WriteString(domain + "\n")
+	for _, item := range jsonData {
+		if item.Subdomain != "" {
+			subdomains = append(subdomains, item.Subdomain)
 		}
 	}
+
+	fileutil.WriteSliceToFile(dest, subdomains)
 	gologger.Info().Msgf("Clean %s Ksubdomain Complete", src)
-
-	if err = scanner.Err(); err != nil {
-		return err
-	}
-
 	return nil
 }

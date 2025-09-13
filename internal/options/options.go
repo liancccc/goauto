@@ -3,6 +3,7 @@ package options
 import (
 	"errors"
 	"net/url"
+	"path/filepath"
 	"strings"
 
 	"github.com/liancccc/goauto/internal/fileutil"
@@ -17,6 +18,8 @@ type Options struct {
 	WorkFlow string
 	LogFile  bool
 	*WebServer
+
+	MaxTaskNum int
 }
 
 func New() *Options {
@@ -38,6 +41,13 @@ func (o *Options) Complete() error {
 	}
 	if err = o.setTaskName(); err != nil {
 		return err
+	}
+	if fileutil.IsFile(o.Target) {
+		absPath, err := filepath.Abs(o.Target)
+		if err != nil {
+			return err
+		}
+		o.Target = absPath
 	}
 	return nil
 }

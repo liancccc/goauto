@@ -1,4 +1,4 @@
-package xscan_spider
+package uncover
 
 import (
 	"testing"
@@ -12,10 +12,17 @@ func init() {
 	gologger.DefaultLogger.SetMaxLevel(levels.LevelDebug)
 }
 
-func TestUrls(t *testing.T) {
-	params := modules.BaseParams{
-		Target: "http://testphp.vulnweb.com",
-		Output: "xscan.json",
+func TestDomain(t *testing.T) {
+	params := Params{
+		BaseParams: &modules.BaseParams{
+			Output: "test_output/services.txt",
+		},
+		Targets: []Target{
+			{
+				Query:  `domain: "kucoin.com"`,
+				Engine: "quake",
+			},
+		},
 	}
 	new(ModuleStruct).Run(params)
 }

@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -18,8 +19,40 @@ import (
 	"github.com/liancccc/goauto/internal/paths"
 	"github.com/liancccc/goauto/internal/sysutil"
 	"github.com/liancccc/goauto/internal/workflow"
+	"github.com/panjf2000/ants/v2"
 	"github.com/projectdiscovery/gologger"
 )
+
+var taskPool *ants.Pool
+var execTaskQueue chan string
+var waitingCount int64
+
+func initTaskPool(maxTaskNum int) {
+	var err error
+	taskPool, err = ants.NewPool(maxTaskNum)
+	if err != nil {
+		gologger.Fatal().Msgf("ants.NewPool: %s", err)
+	}
+	execTaskQueue = make(chan string, 1000)
+	go func() {
+		for command := range execTaskQueue {
+			err := taskPool.Submit(func() {
+				atomic.AddInt64(&waitingCount, -1)
+				executil.RunCommandSteamOutput(command)
+			})
+			if err != nil {
+				gologger.Fatal().Msgf("taskPool.Submit: %s %s%", command, err.Error())
+			}
+		}
+	}()
+}
+
+func getTaskQueueStatusHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, Response(true, "success", map[string]interface{}{
+		"running": taskPool.Running(),
+		"waiting": atomic.LoadInt64(&waitingCount),
+	}))
+}
 
 func execCommandHandler(c *gin.Context) {
 	command := c.Query("command")
@@ -32,7 +65,12 @@ func execCommandHandler(c *gin.Context) {
 		split[0] = os.Args[0]
 	}
 	command = strings.Join(split, " ")
-	go executil.RunCommandSteamOutput(command)
+	if split[0] == os.Args[0] {
+		execTaskQueue <- command
+		atomic.AddInt64(&waitingCount, 1)
+	} else {
+		go executil.RunCommandSteamOutput(command)
+	}
 	c.JSON(http.StatusOK, Response(true, "success", nil))
 }
 

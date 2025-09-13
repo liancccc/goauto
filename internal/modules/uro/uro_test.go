@@ -1,4 +1,4 @@
-package xscan_spider
+package uro
 
 import (
 	"testing"
@@ -12,10 +12,12 @@ func init() {
 	gologger.DefaultLogger.SetMaxLevel(levels.LevelDebug)
 }
 
-func TestUrls(t *testing.T) {
+func TestDomain(t *testing.T) {
+	t.Log(new(ModuleStruct).Install())
+	t.Log(new(ModuleStruct).CheckInstalled())
 	params := modules.BaseParams{
-		Target: "http://testphp.vulnweb.com",
-		Output: "xscan.json",
+		Target: "C:\\Users\\admin\\Downloads\\spiders-clean.txt",
+		Output: "test_output\\urls.txt",
 	}
 	new(ModuleStruct).Run(params)
 }

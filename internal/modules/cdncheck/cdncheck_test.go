@@ -15,7 +15,7 @@ func init() {
 func TestName(t *testing.T) {
 	params := Params{
 		BaseParams: &modules.BaseParams{
-			Target: "subdomains.txt",
+			Target: "all.txt",
 		},
 		CDNPath:   "test_output/cdn.txt",
 		NoCDNPath: "test_output/noCdn.txt",

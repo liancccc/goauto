@@ -84,6 +84,25 @@
 
 ## 任务信息
 
+### 任务状态
+
+请求方法：GET
+
+请求接口：/task/status
+
+请求成功响应：
+
+```json
+{
+    "data": {
+        "running": 3,
+        "waiting": 2
+    },
+    "message": "success",
+    "success": true
+}
+```
+
 ### 任务列表
 
 请求方法：GET

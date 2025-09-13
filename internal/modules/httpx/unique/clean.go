@@ -1,10 +1,8 @@
 package httpx_unique
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
-	"os"
 	"strings"
 	"time"
 
@@ -45,23 +43,18 @@ type HttpJsonData struct {
 func CleanHttpxInvalidTargets(hashJsonPath string, validOut string) error {
 	gologger.Info().Msgf("Cleaning Httpx Json result: %s", hashJsonPath)
 
-	file, err := os.Open(hashJsonPath)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
 	var seen = make(map[string]struct{})
 	var httpResult HttpJsonData
 	var hash string
-	scanner := bufio.NewScanner(file)
-	scanner.Buffer(make([]byte, 0, 64*1024), 1024*1024)
-	for scanner.Scan() {
-		val := strings.TrimSpace(scanner.Text())
-		if val == "" {
+
+	var lines = fileutil.ReadingLines(hashJsonPath)
+
+	for _, line := range lines {
+		line := strings.TrimSpace(line)
+		if line == "" {
 			continue
 		}
-		if err := json.Unmarshal([]byte(val), &httpResult); err != nil {
+		if err := json.Unmarshal([]byte(line), &httpResult); err != nil {
 			continue
 		}
 		hash = fmt.Sprintf("%s-%s", httpResult.Hash.BodySimhash, httpResult.Host)

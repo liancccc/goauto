@@ -1,6 +1,7 @@
 package cdncheck
 
 import (
+	"encoding/json"
 	"strings"
 
 	"github.com/liancccc/goauto/internal/fileutil"
@@ -8,6 +9,10 @@ import (
 	"github.com/liancccc/goauto/internal/modules/merge"
 	"github.com/projectdiscovery/gologger"
 )
+
+type JsonData struct {
+	Input string `json:"input"`
+}
 
 func CleanCdnCheckResult(target, toolResultPath, cdnPath, noCdnPath string) error {
 	gologger.Info().Msgf("Cleaning Cdncheck result: %s", toolResultPath)
@@ -33,16 +38,19 @@ func CleanCdnCheckResult(target, toolResultPath, cdnPath, noCdnPath string) erro
 	} else {
 		targets = []string{target}
 	}
-
+	var cdncheckResult JsonData
 	var cdnTargetMap = make(map[string]struct{}, len(targets))
 	var cdnTargets []string
 	cdnCheckResults := fileutil.ReadingLines(toolResultPath)
 	for _, line := range cdnCheckResults {
-		if strings.Contains(strings.ToLower(line), "cdn") && strings.Count(line, "[") >= 2 {
-			split := strings.Split(line, " ")
-			gologger.Debug().Msgf("Found cdn domain: %s", split[0])
-			cdnTargetMap[split[0]] = struct{}{}
-			cdnTargets = append(cdnTargets, split[0])
+		if strings.Contains(strings.ToLower(line), "cdn") {
+			if err := json.Unmarshal([]byte(line), &cdncheckResult); err != nil {
+				continue
+			}
+			gologger.Debug().Msgf("Found cdn domain: %s", cdncheckResult.Input)
+			cdnTargetMap[cdncheckResult.Input] = struct{}{}
+			cdnTargets = append(cdnTargets, cdncheckResult.Input)
+			cdncheckResult = JsonData{}
 		}
 	}
 
