@@ -1,0 +1,4 @@
+src_ip: 192.168.31.172
+device: \Device\NPF_{52240693-642B-44B3-9665-1A3BE9925AB1}
+src_mac: f0:a6:54:9e:08:07
+dst_mac: 4c:c6:4c:8b:55:13

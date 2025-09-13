@@ -11,44 +11,38 @@ import (
 	"github.com/liancccc/goauto/internal/modules/alterx"
 	"github.com/liancccc/goauto/internal/modules/cdncheck"
 	"github.com/liancccc/goauto/internal/modules/dnsx"
-	"github.com/liancccc/goauto/internal/modules/gospider"
 	httpx_info "github.com/liancccc/goauto/internal/modules/httpx/info"
 	httpx_unique "github.com/liancccc/goauto/internal/modules/httpx/unique"
-	"github.com/liancccc/goauto/internal/modules/katana"
 	ksubdomain_enum "github.com/liancccc/goauto/internal/modules/ksubdomain/enum"
 	ksubdomain_verify "github.com/liancccc/goauto/internal/modules/ksubdomain/verify"
 	"github.com/liancccc/goauto/internal/modules/merge"
 	"github.com/liancccc/goauto/internal/modules/naabu"
 	"github.com/liancccc/goauto/internal/modules/notify"
-	"github.com/liancccc/goauto/internal/modules/nuclei"
 	"github.com/liancccc/goauto/internal/modules/oneforall"
 	"github.com/liancccc/goauto/internal/modules/subfinder"
 	"github.com/liancccc/goauto/internal/modules/uncover"
 	"github.com/liancccc/goauto/internal/modules/unique"
-	"github.com/liancccc/goauto/internal/modules/urlfinder"
-	"github.com/liancccc/goauto/internal/modules/uro"
-	"github.com/liancccc/goauto/internal/modules/xray"
 	"github.com/liancccc/goauto/internal/modules/xscan"
 	xscan_spider "github.com/liancccc/goauto/internal/modules/xscan/spider"
 	"github.com/projectdiscovery/gologger"
 )
 
-type DomainALLFlow struct {
+type FastXscanFlow struct {
 }
 
 func init() {
-	RegisterWorkflow(&DomainALLFlow{})
+	RegisterWorkflow(&FastXscanFlow{})
 }
 
-func (f *DomainALLFlow) Name() string {
-	return "DomainALL"
+func (f *FastXscanFlow) Name() string {
+	return "DomainFastXscan"
 }
 
-func (f *DomainALLFlow) Description() string {
-	return "subdomain -> cdncheck -> portscan-top-1000 -> quake -> httpx -> spider[gospider,urlfind,katana] -> vulscan[xscan,xray,nuclei]"
+func (f *FastXscanFlow) Description() string {
+	return "subdomain -> cdncheck -> portscan-top-1000 -> quake -> httpx -> xscan"
 }
 
-func (f *DomainALLFlow) Run(runner *Runner) {
+func (f *FastXscanFlow) Run(runner *Runner) {
 	var subdomainOutDir = filepath.Join(runner.workSpace, "subdomain")
 	var wg sync.WaitGroup
 	wg.Add(2)
@@ -224,37 +218,7 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		Output: filepath.Join(httpxOutDir, "web.txt"),
 	})
 
-	// 爬虫
-	var spiderOutDir = filepath.Join(runner.workSpace, "spider")
-	new(gospider.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "gospider.txt"),
-		Proxy:  runner.opt.Proxy,
-	})
-	new(katana.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "katana.txt"),
-		Proxy:  runner.opt.Proxy,
-	})
-	new(urlfinder.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "urlfinder.txt"),
-		Proxy:  runner.opt.Proxy,
-	})
-	new(merge.ModuleStruct).Run(merge.Params{
-		BaseParams: &modules.BaseParams{
-			Output: filepath.Join(spiderOutDir, "all.txt"),
-		},
-		Targets: []string{filepath.Join(spiderOutDir, "gospider.txt"), filepath.Join(spiderOutDir, "katana.txt"), filepath.Join(spiderOutDir, "urlfinder.txt")},
-	})
-
-	// 爬虫链接去重
-	new(uro.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(spiderOutDir, "all.txt"),
-		Output: filepath.Join(spiderOutDir, "links.txt"),
-	})
-
-	// 漏洞扫描
+	// xscan 扫描
 	var vulscanOutDir = filepath.Join(runner.workSpace, "vulscan")
 	new(xscan_spider.ModuleStruct).Run(modules.BaseParams{
 		Target: filepath.Join(httpxOutDir, "all.txt"),
@@ -264,40 +228,6 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 		xscan.Clean(filepath.Join(vulscanOutDir, "xscan-spider.json"), filepath.Join(vulscanOutDir, "xscan-spider.html"))
 		new(notify.ModuleStruct).Run(notify.Params{
 			Msg: fmt.Sprintf("Task Name: %s, xscan-spider.json Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xscan-spider.json"))),
-		})
-	}
-
-	new(xscan_spider.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(spiderOutDir, "links.txt"),
-		Output: filepath.Join(vulscanOutDir, "xscan-links.json"),
-	})
-	if fileutil.IsFile(filepath.Join(vulscanOutDir, "xscan-links.json")) {
-		xscan.Clean(filepath.Join(vulscanOutDir, "xscan-links.json"), filepath.Join(vulscanOutDir, "xscan-links.html"))
-		new(notify.ModuleStruct).Run(notify.Params{
-			Msg: fmt.Sprintf("Task Name: %s, xscan-links.json Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xscan-links.json"))),
-		})
-	}
-
-	new(xray.ModuleStruct).Run(xray.Params{
-		BaseParams: &modules.BaseParams{
-			Target: filepath.Join(spiderOutDir, "links.txt"),
-			Output: filepath.Join(vulscanOutDir, "xray-links.html"),
-		},
-	})
-	if fileutil.IsFile(filepath.Join(vulscanOutDir, "xray-links.html")) {
-		new(notify.ModuleStruct).Run(notify.Params{
-			Msg: fmt.Sprintf("Task Name: %s, xray-links.html Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "xray-links.html"))),
-		})
-	}
-
-	new(nuclei.ModuleStruct).Run(modules.BaseParams{
-		Target: filepath.Join(httpxOutDir, "all.txt"),
-		Output: filepath.Join(vulscanOutDir, "nuclei.txt"),
-		Proxy:  runner.opt.Proxy,
-	})
-	if fileutil.IsFile(filepath.Join(vulscanOutDir, "nuclei.txt")) {
-		new(notify.ModuleStruct).Run(notify.Params{
-			Msg: fmt.Sprintf("Task Name: %s, nuclei.txt Count: %d", runner.opt.TaskName, fileutil.CountLines(filepath.Join(vulscanOutDir, "nuclei.txt"))),
 		})
 	}
 }

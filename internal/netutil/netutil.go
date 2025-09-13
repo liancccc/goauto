@@ -1,6 +1,7 @@
 package netutil
 
 import (
+	"net"
 	"net/url"
 
 	"golang.org/x/net/publicsuffix"
@@ -9,6 +10,17 @@ import (
 func GetUrlHostname(rawUrl string) string {
 	urlParse, err := url.Parse(rawUrl)
 	if err != nil {
+		return ""
+	}
+	return urlParse.Hostname()
+}
+
+func GetUrlDomain(rawUrl string) string {
+	urlParse, err := url.Parse(rawUrl)
+	if err != nil {
+		return ""
+	}
+	if net.ParseIP(urlParse.Hostname()) != nil {
 		return ""
 	}
 	return urlParse.Hostname()

@@ -398,3 +398,4 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 ## 待办
 
 - [ ] 跑一个月看 BUG
+- [ ] urlfinder 判断是否域名

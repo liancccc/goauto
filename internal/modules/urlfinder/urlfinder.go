@@ -51,24 +51,24 @@ func (m *ModuleStruct) Run(funcParams any) {
 	var toolOutDir = filepath.Join(filepath.Dir(params.Output), "urlfinder")
 	fileutil.MakeDir(toolOutDir)
 	var commands []string
-	var hostname string
+	var domain string
 	if params.IsFileTarget() {
 		lines := fileutil.ReadingLines(params.Target)
 		for _, target := range lines {
-			hostname = netutil.GetUrlHostname(target)
-			if hostname == "" {
+			domain = netutil.GetUrlDomain(target)
+			if domain == "" {
 				continue
 			}
-			commands = append(commands, fmt.Sprintf("urlfinder -d %s -all -o %s", hostname, filepath.Join(toolOutDir, fileutil.GetUrlFileName(target))))
-			hostname = ""
+			commands = append(commands, fmt.Sprintf("urlfinder -d %s -all -o %s", domain, filepath.Join(toolOutDir, fileutil.GetUrlFileName(target))))
+			domain = ""
 		}
 	} else {
-		hostname = netutil.GetUrlHostname(params.Target)
-		if hostname == "" {
+		domain = netutil.GetUrlDomain(params.Target)
+		if domain == "" {
 			gologger.Error().Str("target", params.Target).Msg("invalid target")
 			return
 		}
-		commands = append(commands, fmt.Sprintf("urlfinder -d %s -all -o %s", hostname, filepath.Join(toolOutDir, fileutil.GetUrlFileName(params.Target))))
+		commands = append(commands, fmt.Sprintf("urlfinder -d %s -all -o %s", domain, filepath.Join(toolOutDir, fileutil.GetUrlFileName(params.Target))))
 	}
 
 	for _, command := range commands {
