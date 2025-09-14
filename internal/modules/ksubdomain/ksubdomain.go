@@ -10,7 +10,7 @@ type KBaseModule struct {
 }
 
 func (m *KBaseModule) Install() error {
-	var installCmd = "go install -v github.com/boy-hack/ksubdomain_enum/v2/cmd/ksubdomain_enum@latest"
+	var installCmd = "go install -v github.com/boy-hack/ksubdomain/v2/cmd/ksubdomain@latest"
 	_, err := executil.RunCommandSteamOutput(installCmd)
 	if err != nil {
 		return err

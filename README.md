@@ -28,8 +28,9 @@
 一些 VPS 的环境安装 ksubdomain、naabu 这些会报错，可以尝试一下命令：
 
 ```
-apt-get install build-essential
-apt-get install libpcap-dev # 选 18 然后重启
+# 选 18 然后重启
+apt-get install build-essential -y
+apt-get install libpcap-dev -y 
 ```
 
 如果 httpx 截图报 rad 缺少依赖的话：
@@ -393,9 +394,10 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 
 ## 记录
 
-2025-09-12 开始自动监控国外 SRC 的新增域名范围务，看看一个月会不会有点收益，把服务器费给赚出来。
+2025-09-13 20:27 跑海外 SRC 通配符域名的第一部分 https://github.com/arkadiyt/bounty-targets-data  803 个任务
+
+![image-20250913202807575](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250913202807575.png)
 
 ## 待办
 
 - [ ] 跑一个月看 BUG
-- [ ] urlfinder 判断是否域名
