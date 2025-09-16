@@ -61,7 +61,7 @@ func (m *ModuleStruct) Run(funcParams any) {
 
 	var command = fmt.Sprintf("%s %s | alterx -enrich -o %s", catBin, params.Target, params.Output)
 
-	_, err := executil.RunCommandSteamOutput(command)
+	_, err := executil.RunCommandSteamOutput(command, params.Timeout)
 	if err != nil {
 		gologger.Error().Str("module", m.Name()).Msg(err.Error())
 		return

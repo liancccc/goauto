@@ -4,7 +4,7 @@
 
 2023 年完成过一版 *GOAUTO* 但是由于工具需要手动安装，添加工具复杂，所以弃用。在这期间学习阅读各种工具源码以期待将整个流程使用单纯的 *Go* 来实现，但是个人的力量是有限的，工作后更没有精力和信心把每个模块的工具都做到很好，实现功能不难，参考已有工具就可以，但是仅实现功能好像并没有任何的意义。而且新的更好的工具也在不断出现，有开源也有闭源，如果有新的工具新的思路出现，凭个人去维护是很难的，最近空闲又拾起这件事情。改变想法，单纯的调用工具来完成整个流程。
 
-[Osmedeus](https://github.com/j3ssie/osmedeus) 可以说是调用二进制工具实现工作流一个很好的工具，可以通过 `yaml` 来实现各种模块的工作流，由代码提供自定义 Script 配合系统命令实现一个更自由的工具流，所有参数可控，命令可控，但是由于基于 `yaml` 编写太不习惯，一些细节不好把控，所以再编写一版简单的 *GOAUTO*。
+[Osmedeus](https://github.com/j3ssie/osmedeus) 可以说是调用二进制工具实现工作流一个很好的工具，可以通过 `yaml` 来实现各种模块的工作流，由代码提供自定义 Script 配合系统命令实现一个更自由的工具流，所有参数可控，命令可控，但是由于基于 `yaml` 编写太不习惯，一些细节不好把控，所以再编写一版简单的 *GOAUTO*。相较于 osm 会显得很死板，不能动态的去改变工作流，但是可以做更多的事情，需要个人去按照个人的习惯去编写。
 
 ## 安装
 
@@ -43,14 +43,21 @@ dpkg -i google-chrome*; sudo apt-get -f install
 apt-get install google-chrome-stable
 ```
 
+xscan 加 8 佬星球获取：https://t.zsxq.com/L2U6k
+
+```
+unzip xscan_*.zip -d /root/goauto-base/tools/xscan
+```
+
 Golang 安装：
 
 ```
 wget https://go.dev/dl/go1.24.0.linux-amd64.tar.gz -O go.linux-amd64.tar.gz
 tar -C /usr/local -xzf go.linux-amd64.tar.gz
-echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bash_profile
-echo "export PATH=$PATH:/root/go/bin" >> ~/.bash_profile
+echo "export PATH=$PATH:/usr/local/go/bin:/root/go/bin" >> ~/.bash_profile
+echo "export PATH=$PATH:/usr/local/go/bin:/root/go/bin" >> ~/.bashrc
 source ~/.bash_profile
+source ~/.bashrc
 bash -c go
 ```
 
@@ -66,6 +73,12 @@ goauto install
 - oneforall：注释爆破相关，因为安装 pip 会报错
 - cdncheck：添加国内源和并发扫描
 - uro：windows 环境下 -o 的 gbk 问题，取消 pipx 变更单纯的 py
+
+需要人工配置的：
+
+- subfinder
+- notify
+- uncover
 
 初始化包含 3 个部分：
 
@@ -135,6 +148,8 @@ goauto scan --target vulnweb.com --flow DomainALL --debug
 ### WEB模式
 
 主要参考的也是 osm ，osm 的 WEB 会把每个模块的报告展示出来，直接去查看原始的输出，这点是之前没有想到过的。这就更轻量级了，不需要什么数据库什么展示，只需要原原本本的展示就可以了，毕竟如果添加了数据库，那就会把这件事情变得复杂。
+
+默认 8848 钛合金端口，账号密码不指定就随机
 
 前端是基于 daisyui 写的，可以参考 https://daisyui.com/docs/editor/cursor/ 用 Cursor 自己改。
 
@@ -394,10 +409,19 @@ func (f *DomainALLFlow) Run(runner *Runner) {
 
 ## 记录
 
-2025-09-13 20:27 跑海外 SRC 通配符域名的第一部分 https://github.com/arkadiyt/bounty-targets-data  803 个任务
 
-![image-20250913202807575](https://blog-1310215391.cos.ap-beijing.myqcloud.com/images/image-20250913202807575.png)
 
 ## 待办
 
 - [ ] 跑一个月看 BUG
+- [ ] 加爬虫！gau craw 动态爬虫！！！！！！！！！！！！！！
+- [x] 加 wlh
+- [ ] nuclei 报告 xray 展示 等级分级
+- [ ] httpx 的信息不要这样了 去重后输出的仍然是 json，然后解析渲染变成 html
+- [ ] quake 获取 services uncover 不太行
+- [ ] 路径整理 拆分
+- [ ] 自己搞一个监控 SRC 的
+- [ ] xray 报告拆分
+- [x] alterx 超时控制
+- [ ] 结果判断 是否跑偏
+- [ ] 工作流重构

@@ -67,7 +67,11 @@ func (runner *Runner) Run() error {
 	if !exists {
 		return fmt.Errorf("work flow %s does not exist", runner.opt.WorkFlow)
 	}
-	flow.Run(runner)
+	flow.Run(&workflowParams{
+		target:    runner.opt.Target,
+		workSpace: runner.workSpace,
+		opt:       runner.opt,
+	})
 	return nil
 }
 

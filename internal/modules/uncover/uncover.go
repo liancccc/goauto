@@ -11,6 +11,7 @@ import (
 	"github.com/liancccc/goauto/internal/modules"
 	"github.com/liancccc/goauto/internal/modules/merge"
 	"github.com/projectdiscovery/gologger"
+	"github.com/rs/xid"
 )
 
 func init() {
@@ -61,7 +62,7 @@ func (m *ModuleStruct) Run(funcParams any) {
 
 	var commands []string
 	for _, target := range params.Targets {
-		command := fmt.Sprintf("uncover -q '%s' -e %s -o %s.txt", target.Query, target.Engine, filepath.Join(toolOutDir, fileutil.GetUnixNmae()))
+		command := fmt.Sprintf("uncover -q '%s' -e %s -o %s.txt", target.Query, target.Engine, filepath.Join(toolOutDir, xid.New().String()))
 		commands = append(commands, command)
 	}
 

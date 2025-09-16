@@ -3,7 +3,7 @@ package workflow
 type WorkFlow interface {
 	Name() string
 	Description() string
-	Run(*Runner)
+	Run(*workflowParams)
 }
 
 var WorkFlows = make(map[string]WorkFlow)

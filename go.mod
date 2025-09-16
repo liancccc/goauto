@@ -8,6 +8,7 @@ require (
 	github.com/panjf2000/ants/v2 v2.11.3
 	github.com/projectdiscovery/dnsx v1.2.2
 	github.com/projectdiscovery/gologger v1.1.54
+	github.com/rs/xid v1.5.0
 	github.com/shirou/gopsutil/v3 v3.23.7
 	github.com/spf13/cobra v1.10.1
 	github.com/thoas/go-funk v0.9.3
